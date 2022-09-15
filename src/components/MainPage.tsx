@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components';
 
 const MainSection = tw.section`
-h-full grid grid-cols-2 gap-4 bg-white px-48 pb-12
+h-full flex flex-col lg:grid lg:grid-cols-2 gap-4 bg-white lg:px-48 pb-12
 `;
 
 const CarouselSlider = tw.article`
@@ -45,7 +45,7 @@ export const MainPage = () => {
             <Category>댓글 순</Category>
           </CategoryList>
         </TopMenu>
-        <ul className="h-full bg-white rounded-b">내용</ul>
+        <ul className="h-48 lg:h-full bg-white rounded-b">내용</ul>
       </TopList>
       <Article>
         <Title>자유 게시판</Title>
