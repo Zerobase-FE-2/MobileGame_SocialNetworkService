@@ -9,15 +9,15 @@ function App() {
     <div className="App">
       <Helmet>
         <title>Mobile-Review</title>
-        <Routes>
-          <Route path="/"></Route>
-          <Route path="write" element={<WritePage />} />
-          <Route path="/@:username">
-            <Route index element={<PostListPage />} />
-            <Route path=":postId" element={<PostPage />} />
-          </Route>
-        </Routes>
       </Helmet>
+      <Routes>
+        <Route path="/" element={<PostListPage />}></Route>
+        <Route path="/write" element={<WritePage />} />
+        <Route path="/@:username">
+          <Route index element={<PostListPage />} />
+          <Route path=":postId" element={<PostPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

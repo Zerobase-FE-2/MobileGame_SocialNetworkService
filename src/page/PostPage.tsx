@@ -1,5 +1,11 @@
+import HeaderContainer from '../containers/common/HeaderContainer';
+
 const PostPage = () => {
-  return <div>Write</div>;
+  return (
+    <>
+      <HeaderContainer />
+    </>
+  );
 };
 
 export default PostPage;
