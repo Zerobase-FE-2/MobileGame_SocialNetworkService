@@ -18,37 +18,10 @@ export const NavSideBar = (props: props) => {
   return (
     <SideBar>
       <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        <Link to={'/category'}>전체</Link>
+        <Link to={'/category'}>게임 리뷰</Link>
       </SideBarList>
       <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        액션
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        어드벤쳐
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        롤플레잉
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        스포츠
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        레이싱
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        전략
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        인디
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        음악
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        보드
-      </SideBarList>
-      <SideBarList onClick={() => props.setClicked(!props.clicked)}>
-        캐주얼
+        <Link to={'/community'}>게시판</Link>
       </SideBarList>
     </SideBar>
   );

@@ -1,11 +1,7 @@
 import tw from 'tailwind-styled-components';
 
 const MainSection = tw.section`
-h-full flex flex-col lg:grid lg:grid-cols-2 gap-4 bg-white lg:px-48 pb-12
-`;
-
-const CarouselSlider = tw.article`
-w-full h-72 col-span-2 text-center bg-black text-white
+h-full flex flex-col lg:grid lg:grid-cols-2 pt-4 gap-4 bg-gray-300 lg:px-48 pb-12
 `;
 
 const TopList = tw.article`
@@ -35,7 +31,6 @@ p-2 text-white font-semibold
 export const MainPage = () => {
   return (
     <MainSection>
-      <CarouselSlider>place for carousel slider</CarouselSlider>
       <TopList>
         <TopMenu>
           <Title>TOP 5</Title>

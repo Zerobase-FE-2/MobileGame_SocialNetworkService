@@ -44,9 +44,7 @@ export const Navbar = () => {
             id="search"
             placeholder="검색어를 입력해주세요."
           />
-          <Login>
-            <Link to={'/login'}>Login</Link>
-          </Login>
+          <Login>Login</Login>
         </Nav>
       </div>
       {clicked && <NavSideBar clicked={clicked} setClicked={setClicked} />}
