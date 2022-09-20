@@ -11,7 +11,7 @@ function App() {
         <title>Mobile-Review</title>
       </Helmet>
       <Routes>
-        <Route path="/" element={<PostListPage />}></Route>
+        <Route path="/" element={<PostListPage />} />
         <Route path="/write" element={<WritePage />} />
         <Route path="/@:username">
           <Route index element={<PostListPage />} />
