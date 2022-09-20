@@ -7,7 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 
-import rootReducer, { rootSaga } from './modules';
+import rootReducer, { rootSaga } from './modules/redux';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -27,3 +27,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </Provider>
 );
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDisPatch = typeof store.dispatch;
