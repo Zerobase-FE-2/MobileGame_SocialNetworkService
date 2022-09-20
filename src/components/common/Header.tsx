@@ -37,16 +37,19 @@ const UserInfo = styled.div`
 
 const Header = () => {
   return (
-    <HeaderBlock>
-      <Wrapper>
-        <Link to="/" className="logo">
-          MoReview
-        </Link>
-        <div className="right">
-          <Button to="/login">로그인</Button>
-        </div>
-      </Wrapper>
-    </HeaderBlock>
+    <>
+      <HeaderBlock>
+        <Wrapper>
+          <Link to="/" className="logo">
+            MoReview
+          </Link>
+          <div className="right">
+            <Button to="/login">로그인</Button>
+          </div>
+        </Wrapper>
+      </HeaderBlock>
+      <Spacer />
+    </>
   );
 };
 

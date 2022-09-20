@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 import { Link } from 'react-router-dom';
+
 interface MyComponentsProps {
   fullWidth?: boolean;
   cyan?: number;
@@ -37,6 +38,7 @@ const buttonStyle = css`
       width: 100%;
       font-size: 1.125rem;
     `};
+
   ${(props: MyComponentsProps) =>
     props.cyan &&
     css`
