@@ -1,8 +1,10 @@
-import { ref, child, get, set } from 'firebase/database';
+import sanitizeHtml from 'sanitize-html';
+import { ref, child, get, set, push, onValue, query } from 'firebase/database';
 import { database } from './app';
 
 import { v4 as uuidv4 } from 'uuid';
 import { users } from '../../lib/fakeData/user';
+import { sanitizeOption } from '../../lib/api/posts';
 
 export const writePost = async ({
   title,
@@ -17,6 +19,7 @@ export const writePost = async ({
   const publishedDate = Date.now();
   try {
     await set(ref(database, 'posts/' + uid), {
+      _id: uid,
       title,
       body,
       tags,
@@ -46,10 +49,10 @@ export const writePost = async ({
 };
 
 export const readPost = async (id: string) => {
-  const postRef = ref(database, 'posts');
-  let data;
+  const dbRef = ref(database);
   try {
-    const response = await get(child(postRef, `${id}`));
+    const response = await get(child(dbRef, `posts/${id}`));
+
     if (response.exists()) {
       return response.val();
     }
@@ -58,19 +61,16 @@ export const readPost = async (id: string) => {
   }
 };
 
-export const listPosts = () => {
-  const postRef = ref(database, 'posts');
-  get(child(postRef, 'posts/'))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log('No data vavailable');
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+export const listPosts = async () => {
+  const postRef = ref(database);
+  try {
+    const response = await get(child(postRef, `posts/`));
+    if (response.exists()) {
+      return response.val();
+    }
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const updatePost = () => {};
