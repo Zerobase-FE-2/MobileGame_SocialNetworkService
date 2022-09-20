@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
@@ -38,34 +40,58 @@ const PostItemBlock = styled.div`
   }
 `;
 
-const PostItem = () => {
+const PostItem = ({ post }: { post: any }) => {
+  const { publishedDate, user, tags, title, body, _id } = post;
   return (
     <PostItemBlock>
-      <h2>제목</h2>
+      <h2>
+        <Link to={`/@${user.username}/${_id}`}>{title}</Link>
+      </h2>
       <SubInfo
-        username="username"
-        publishedDate={new Date()}
+        username={user.username}
+        publishedDate={new Date(publishedDate)}
         hasMarginTop={false}
       />
-      <Tags tags={['태그1', '태그2', '태그3']} />
-      <p>포스트 내용의 일부분...</p>
+      <Tags tags={tags} />
+      <p>{body}</p>
     </PostItemBlock>
   );
 };
 
-const PostList = () => {
+const PostList = ({
+  posts,
+  loading,
+  error,
+  showWriteButton,
+}: {
+  posts: any;
+  loading: any;
+  error: any;
+  showWriteButton: any;
+}) => {
+  if (error) {
+    return <PostListBlock>에러가 발생 하였습니다.</PostListBlock>;
+  }
+  if (posts) {
+    posts = Object.values(posts);
+  }
+
   return (
     <PostListBlock>
       <WritePostButtonWrapper>
-        <Button cyan to="/write">
-          새 글 작성하기
-        </Button>
+        {showWriteButton && (
+          <Button cyan to="/write">
+            새 글 작성하기
+          </Button>
+        )}
       </WritePostButtonWrapper>
-      <div>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-      </div>
+      {!loading && posts && (
+        <div>
+          {posts.map((post: any) => (
+            <PostItem post={post} key={post._id} />
+          ))}
+        </div>
+      )}
     </PostListBlock>
   );
 };

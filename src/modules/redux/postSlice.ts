@@ -17,7 +17,7 @@ const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    READ_POST: (state, { payload: id }) => id,
+    READ_POST: (state, { payload: id }) => initialState,
     READ_POST_SUCCESS: (state, { payload: post }) => ({
       ...state,
       post,

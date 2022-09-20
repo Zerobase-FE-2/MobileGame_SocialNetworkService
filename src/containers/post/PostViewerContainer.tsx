@@ -32,9 +32,8 @@ const PostViewerContainer = () => {
       loading: loading['post/READ_POST'],
     })
   );
-  console.log('start', postId);
+
   useEffect(() => {
-    console.log('start', postId);
     dispatch(READ_POST(postId));
     return () => {
       dispatch(unloadPost());
