@@ -19,10 +19,10 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
 
-  background: ${palette.gray[8]};
+  background: ${palette.blue[4]};
 
   &:hover {
-    background: ${palette.gray[6]};
+    background: ${palette.blue[5]};
   }
   &:disabled {
     background: ${palette.gray[3]};
@@ -42,9 +42,9 @@ const buttonStyle = css`
   ${(props: MyComponentsProps) =>
     props.cyan &&
     css`
-      background: ${palette.cyan[5]};
+      background: ${palette.cyan[4]};
       &:hover {
-        background: ${palette.cyan[4]};
+        background: ${palette.cyan[5]};
       }
     `}
 `;

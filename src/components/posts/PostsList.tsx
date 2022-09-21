@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -6,10 +5,35 @@ import Button from '../common/Button';
 import Responsive from '../common/Responsive';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
+import Category from './Category';
+import BestBoards from './BestBoards';
+
+const Wrapper = styled(Responsive)`
+  display: flex;
+`;
+
+const SideBlock = styled.div`
+  @media (max-width: 1024px) {
+    flex: 1 1 0;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+  margin-top: 3rem;
+  padding-right: 1rem;
+`;
 
 const PostListBlock = styled(Responsive)`
+  @media (max-width: 1024px) {
+    flex: 6 1 0;
+  }
+  @media (max-width: 768px) {
+    flex: 1 1 0;
+  }
+
   margin-top: 3rem;
 `;
+
 const WritePostButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -63,11 +87,15 @@ const PostList = ({
   loading,
   error,
   showWriteButton,
+  categories,
+  boards,
 }: {
   posts: any;
   loading: any;
   error: any;
   showWriteButton: any;
+  categories: any;
+  boards: any;
 }) => {
   if (error) {
     return <PostListBlock>에러가 발생 하였습니다.</PostListBlock>;
@@ -77,22 +105,28 @@ const PostList = ({
   }
 
   return (
-    <PostListBlock>
-      <WritePostButtonWrapper>
-        {showWriteButton && (
-          <Button cyan to="/write">
-            새 글 작성하기
-          </Button>
+    <Wrapper>
+      <SideBlock>
+        <Category categories={categories} />
+        <BestBoards boards={boards} />
+      </SideBlock>
+      <PostListBlock>
+        <WritePostButtonWrapper>
+          {showWriteButton && (
+            <Button cyan to="/write">
+              새 글 작성하기
+            </Button>
+          )}
+        </WritePostButtonWrapper>
+        {!loading && posts && (
+          <div>
+            {posts.map((post: any) => (
+              <PostItem post={post} key={post._id} />
+            ))}
+          </div>
         )}
-      </WritePostButtonWrapper>
-      {!loading && posts && (
-        <div>
-          {posts.map((post: any) => (
-            <PostItem post={post} key={post._id} />
-          ))}
-        </div>
-      )}
-    </PostListBlock>
+      </PostListBlock>
+    </Wrapper>
   );
 };
 
