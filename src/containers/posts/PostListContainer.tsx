@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+
+import Category from '../../components/posts/Category';
 import PostList from '../../components/posts/PostsList';
+import { boards } from '../../lib/fakeData/boards';
+import { categories } from '../../lib/fakeData/categories';
+
 import { users } from '../../lib/fakeData/user';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
 import { LIST_POSTS } from '../../modules/redux/postsSlice';
@@ -26,12 +31,16 @@ const PostListContainer = () => {
   }, [dispatch, searchParams, username]);
 
   return (
-    <PostList
-      loading={loading}
-      error={error}
-      posts={posts}
-      showWriteButton={user}
-    />
+    <>
+      <PostList
+        loading={loading}
+        error={error}
+        posts={posts}
+        showWriteButton={user}
+        categories={categories}
+        boards={boards}
+      />
+    </>
   );
 };
 

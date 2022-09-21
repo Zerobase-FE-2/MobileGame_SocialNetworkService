@@ -8,6 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   min-height: 100%;
+  background-color: #f1f1f1;
 }
 
 #root {

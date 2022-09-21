@@ -23,6 +23,29 @@ const palette = {
     '#0c8599',
     '#0b7285',
   ],
+  blue: [
+    //네비게이션, 리스트아이템
+    '#aadbff',
+    //검색창, 글쓰는 공간
+    '#E4F4FF',
+
+    //프로필, 푸터
+    '#42afff',
+    //버튼
+    '#69A5ff',
+    //버튼 hover, container
+    '#3284ff',
+    //container
+    '#aadbff',
+  ],
+  black: [
+    //배경화면
+    '#f1f1f1',
+    //이미지박스
+    '#e9ebff',
+    //container
+    '#3284ff',
+  ],
 };
 
 export default palette;
