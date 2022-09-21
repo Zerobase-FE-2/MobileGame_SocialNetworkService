@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useSWR from 'swr';
 
@@ -44,33 +45,49 @@ export const CategoryPage = () => {
           <CategoryList onClick={() => setCategory(null)}>전체</CategoryList>
           <CategoryList
             onClick={(event) => {
-              setCategory(event.target.innerText);
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
             }}
           >
             액션
           </CategoryList>
           <CategoryList
-            onClick={(event) => setCategory(event.target.innerText)}
+            onClick={(event) => {
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
+            }}
           >
             어드벤처
           </CategoryList>
           <CategoryList
-            onClick={(event) => setCategory(event.target.innerText)}
+            onClick={(event) => {
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
+            }}
           >
             롤플레잉
           </CategoryList>
           <CategoryList
-            onClick={(event) => setCategory(event.target.innerText)}
+            onClick={(event) => {
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
+            }}
           >
             자동차 경주
           </CategoryList>
           <CategoryList
-            onClick={(event) => setCategory(event.target.innerText)}
+            onClick={(event) => {
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
+            }}
           >
             시뮬레이션
           </CategoryList>
           <CategoryList
-            onClick={(event) => setCategory(event.target.innerText)}
+            onClick={(event) => {
+              const target = event.target as HTMLElement;
+              setCategory(target.innerText);
+            }}
           >
             캐주얼 게임
           </CategoryList>
@@ -88,9 +105,11 @@ export const CategoryPage = () => {
                   />
                 </figure>
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-black font-semibold">{item.title}</h2>
+                  <h2 className="text-black font-semibold">
+                    <Link to={`/${item.id}`}>{item.title}</Link>
+                  </h2>
                   <p className="w-full h-12 overflow-hidden">
-                    {item.description}
+                    <Link to={`/${item.id}`}>{item.description}</Link>
                   </p>
                 </div>
               </div>
@@ -107,9 +126,11 @@ export const CategoryPage = () => {
                     />
                   </figure>
                   <div className="flex flex-col gap-4">
-                    <h2 className="text-black font-semibold">{item.title}</h2>
+                    <h2 className="text-black font-semibold">
+                      <Link to={`/${item.id}`}>{item.title}</Link>
+                    </h2>
                     <p className="w-full h-12 overflow-hidden">
-                      {item.description}
+                      <Link to={`/${item.id}`}>{item.description}</Link>
                     </p>
                   </div>
                 </div>

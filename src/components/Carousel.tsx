@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 
 const CarouselSlider = tw.div`
@@ -20,11 +21,13 @@ export const Carousel = ({ docs }: any) => {
   }, []);
   return (
     <CarouselSlider>
-      <img
-        className="w-full max-h-full"
-        src={docs[num].image}
-        alt={docs[num].title}
-      />
+      <Link to={`/${docs[num].id}`}>
+        <img
+          className="w-full max-h-full"
+          src={docs[num].screenshot[0]}
+          alt={docs[num].title}
+        />
+      </Link>
     </CarouselSlider>
   );
 };

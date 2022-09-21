@@ -9,7 +9,7 @@ import { Footer } from './components/Footer';
 import tw from 'tailwind-styled-components';
 
 export const API_URL =
-  'https://run.mocky.io/v3/44087679-211b-4172-a671-e22686acd106';
+  'https://run.mocky.io/v3/3c8d01cf-810b-4471-8d45-62f8911aad8f';
 
 const RootDiv = tw.div`
 relative box-border
