@@ -19,7 +19,8 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    LIST_POSTS: (state, { payload: { tag, username, page } }) => initialState,
+    LIST_POSTS: (state, { payload: { tag, username, page, category } }) =>
+      initialState,
     LIST_POSTS_SUCCESS: (state, { payload: posts }) => ({
       ...state,
       posts,

@@ -5,8 +5,10 @@ import writeReducer, { writeSaga } from './writeSlice';
 import loadingReducer from './loadingSlice';
 import postReducer, { postSaga } from './postSlice';
 import postsReducer, { postsSaga } from './postsSlice';
+import userReducer from './userSlice';
 
 const rootReducer = combineReducers({
+  user: userReducer,
   write: writeReducer,
   loading: loadingReducer,
   post: postReducer,

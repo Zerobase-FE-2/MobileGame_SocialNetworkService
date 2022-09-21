@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import Category from '../../components/posts/Category';
 import PostList from '../../components/posts/PostsList';
 import { boards } from '../../lib/fakeData/boards';
 import { categories } from '../../lib/fakeData/categories';
@@ -27,7 +26,8 @@ const PostListContainer = () => {
   useEffect(() => {
     const tag = searchParams.get('tag');
     const page = parseInt(searchParams.get('page') as string, 10) || 1;
-    dispatch(LIST_POSTS({ tag, username, page }));
+    const category = searchParams.get('category');
+    dispatch(LIST_POSTS({ tag, username, page, category }));
   }, [dispatch, searchParams, username]);
 
   return (

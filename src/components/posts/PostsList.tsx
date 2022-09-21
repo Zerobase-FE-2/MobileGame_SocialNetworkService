@@ -7,9 +7,11 @@ import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 import Category from './Category';
 import BestBoards from './BestBoards';
+import { categories } from '../../lib/fakeData/categories';
 
 const Wrapper = styled(Responsive)`
   display: flex;
+  height: 90vh;
 `;
 
 const SideBlock = styled.div`
@@ -65,13 +67,14 @@ const PostItemBlock = styled.div`
 `;
 
 const PostItem = ({ post }: { post: any }) => {
-  const { publishedDate, user, tags, title, body, _id } = post;
+  const { category, publishedDate, user, tags, title, body, _id } = post;
   return (
     <PostItemBlock>
       <h2>
         <Link to={`/@${user.username}/${_id}`}>{title}</Link>
       </h2>
       <SubInfo
+        category={category}
         username={user.username}
         publishedDate={new Date(publishedDate)}
         hasMarginTop={false}
@@ -113,7 +116,7 @@ const PostList = ({
       <PostListBlock>
         <WritePostButtonWrapper>
           {showWriteButton && (
-            <Button cyan to="/write">
+            <Button cyan to="/boardwrite">
               새 글 작성하기
             </Button>
           )}

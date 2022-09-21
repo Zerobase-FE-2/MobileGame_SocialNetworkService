@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
+import { Link } from 'react-router-dom';
+
 const CategoryBlock = styled.ul`
   display: flex;
   flex-direction: column;
@@ -14,6 +16,7 @@ const CategoryBlock = styled.ul`
     text-align: center;
     padding: 0.3rem 0;
     width: 100%;
+    display: flex;
 
     &:hover {
       cursor: pointer;
@@ -35,12 +38,24 @@ const CategoryBlock = styled.ul`
   }
 `;
 
-const Category = ({ categories }: { categories: string[] }) => {
+const CategoryLink = styled(Link)`
+  flex: 1 1 0;
+`;
+
+const Category = ({
+  categories,
+}: {
+  categories: { name: string; url: string }[];
+}) => {
   return (
     <CategoryBlock>
       <span>카테고리</span>
       {categories.map((category) => (
-        <li>{category}</li>
+        <li key={category.name}>
+          <CategoryLink to={`?category=${category.url}`}>
+            {category.name}
+          </CategoryLink>
+        </li>
       ))}
     </CategoryBlock>
   );

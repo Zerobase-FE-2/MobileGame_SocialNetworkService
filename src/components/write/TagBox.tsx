@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const TagBoxBlock = styled.div`
-  width: 100%;
+  flex: 1 1 0;
   border-top: 1px solid ${palette.gray[2]};
   padding-top: 2rem;
 
@@ -56,6 +56,7 @@ const Tag = styled.div`
 const TagListBlock = styled.div`
   display: flex;
   margin-top: 0.5rem;
+  min-height: 1rem;
 `;
 
 const TagItem = React.memo(
