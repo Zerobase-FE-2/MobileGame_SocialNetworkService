@@ -3,6 +3,7 @@ import styled, { css, CSSProperties } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 interface subInfo {
+  category: string;
   username: string;
   publishedDate: any;
   hasMarginTop: any;
@@ -24,13 +25,21 @@ const SubInfoBlock = styled.div`
   }
 `;
 
-const SubInfo = ({ username, publishedDate, hasMarginTop }: subInfo) => {
+const SubInfo = ({
+  category,
+  username,
+  publishedDate,
+  hasMarginTop,
+}: subInfo) => {
   return (
     <SubInfoBlock hasMarginTop={hasMarginTop}>
       <span>
         <b>
           <Link to={`/@${username}`}>{username}</Link>
         </b>
+      </span>
+      <span>
+        <Link to={`/?category=${category}`}>{category}</Link>
       </span>
       <span>{new Date(publishedDate).toLocaleDateString()}</span>
     </SubInfoBlock>

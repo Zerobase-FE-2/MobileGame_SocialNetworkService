@@ -6,6 +6,9 @@ import {
   READ_POST,
   UNLOAD_POST as unloadPost,
 } from '../../modules/redux/postSlice';
+import PostActionButtons from '../../components/post/PostActionButtons';
+import { SET_ORIGINAL_POST } from '../../modules/redux/writeSlice';
+import { removePost } from '../../modules/firebase/write';
 
 interface post {
   title: string;
@@ -20,16 +23,19 @@ interface user {
   username: string;
   _id: string | null;
 }
+
 const PostViewerContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const { post, error, loading } = useAppSelector(
+  const { post, error, loading, user } = useAppSelector(
     ({ post, loading }: { post: any; loading: any }) => ({
       post: post.post,
       error: post.error,
       loading: loading['post/READ_POST'],
+      user: post.post,
+      //TODO: user 관리 이후에 변경필요
     })
   );
 
@@ -40,7 +46,33 @@ const PostViewerContainer = () => {
     };
   }, [dispatch, postId]);
 
-  return <PostViewer post={post} loading={loading} error={error} />;
+  const onEdit = () => {
+    dispatch(SET_ORIGINAL_POST(post));
+    navigate('/boardwrite');
+  };
+
+  const onRemove = async () => {
+    console.log('삭제', postId);
+    try {
+      await removePost(postId as string);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //TODO: user 관리 이후에 변경필요
+  const ownPost = (user && user.user._id) === (post && post.user._id);
+  return (
+    <PostViewer
+      post={post}
+      loading={loading}
+      error={error}
+      actionButtons={
+        ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+      }
+    />
+  );
 };
 
 export default PostViewerContainer;

@@ -6,21 +6,28 @@ import Responsive from '../common/Responsive';
 import 'quill/dist/quill.bubble.css';
 
 const EditorBlock = styled(Responsive)`
-  padding-top: 5rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 4rem;
+  height: 70vh;
+  background-color: ${palette.blue[2]};
 `;
 
 const TitleInput = styled.input`
   font-size: 3rem;
   outline: none;
+  padding: 5px;
   padding-bottom: 0.5rem;
   border: none;
-  border-bottom: 1px solid ${palette.gray[4]};
   margin-bottom: 2rem;
+  background-color: ${palette.blue[1]};
   width: 100%;
 `;
 
 const QuillWrapper = styled.div`
+  height: 90%;
+  background-color: ${palette.blue[1]};
+  padding: 10px;
   .ql-editor {
     padding: 0;
     min-height: 320px;

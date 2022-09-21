@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
-import { writePost } from '../firebase/write';
+import { writePost, updatePost } from '../firebase/write';
 
 export interface WriteState {
   title: string;
   body: string;
   tags: string[];
+  category: string;
   post: {
     title: string;
     body: string;
@@ -18,20 +19,25 @@ export interface WriteState {
     publishedDate: string;
   } | null;
   postError: boolean | null;
+  originalPostId: string | null;
 }
 
 const initialState: WriteState = {
   title: '',
   body: '',
   tags: [],
+  category: 'all',
   post: null,
   postError: null,
+  originalPostId: null,
 };
 
 const writePostSaga = createRequestSaga('write/WRITE_POST', writePost);
+const updatePostSaga = createRequestSaga('write/UPDATE_POST', updatePost);
 
 export function* writeSaga() {
   yield takeLatest('write/WRITE_POST', writePostSaga);
+  yield takeLatest('write/UPDATE_POST', updatePostSaga);
 }
 
 const writeSlice = createSlice({
@@ -44,7 +50,7 @@ const writeSlice = createSlice({
       {
         payload: { key, value },
       }: PayloadAction<{
-        key: 'title' | 'body' | 'tags';
+        key: 'title' | 'body' | 'tags' | 'category';
         value: string & string[];
       }>
     ) => ({
@@ -64,6 +70,23 @@ const writeSlice = createSlice({
       ...state,
       postError,
     }),
+    SET_ORIGINAL_POST: (state, { payload: post }) => ({
+      ...state,
+      title: post.title,
+      body: post.body,
+      tags: post.tags,
+      category: post.category,
+      originalPostId: post._id,
+    }),
+    UPDATE_POST: (state, { payload: post }) => ({ ...state, post }),
+    UPDATE_POST_SUCCESS: (state, { payload: post }) => ({
+      ...state,
+      post,
+    }),
+    UPDATE_POST_FAILURE: (state, { payload: postError }) => ({
+      ...state,
+      postError,
+    }),
   },
 });
 
@@ -73,6 +96,10 @@ export const {
   WRITE_POST,
   WRITE_POST_SUCCESS,
   WRITE_POST_FAILED,
+  SET_ORIGINAL_POST,
+  UPDATE_POST,
+  UPDATE_POST_SUCCESS,
+  UPDATE_POST_FAILURE,
 } = writeSlice.actions;
 
 export default writeSlice.reducer;

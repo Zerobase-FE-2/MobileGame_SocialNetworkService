@@ -12,7 +12,8 @@ function App() {
       </Helmet>
       <Routes>
         <Route path="/" element={<PostListPage />} />
-        <Route path="/write" element={<WritePage />} />
+        <Route path="/board" element={<PostListPage />} />
+        <Route path="/boardwrite" element={<WritePage />} />
         <Route path="/@:username">
           <Route index element={<PostListPage />} />
           <Route path=":postId" element={<PostPage />} />

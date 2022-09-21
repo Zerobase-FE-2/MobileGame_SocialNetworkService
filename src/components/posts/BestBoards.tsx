@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 
 const BoardBlock = styled.ul`
   display: flex;
@@ -45,6 +46,8 @@ const BoardBlock = styled.ul`
     margin: 0;
     background-color: ${palette.blue[5]};
     border-radius: 3px;
+    display: flex;
+    justify-content: center;
   }
 
   @media (max-width: 768px) {
@@ -52,13 +55,21 @@ const BoardBlock = styled.ul`
   }
 `;
 
+const BestBoardLink = styled(Link)`
+  flex: 1 1 0;
+`;
+
 const BestBoards = ({ boards }: { boards: any }) => {
   return (
     <BoardBlock>
       <span>인기 게시글</span>
-      {boards.map((board: { title: string }) => (
-        <li>
-          <p>{board.title}</p>
+      {boards.map((board: { title: string; _id: string; username: string }) => (
+        <li key={board._id}>
+          <p>
+            <BestBoardLink to={`/@${board.username}/${board._id}`}>
+              {board.title}
+            </BestBoardLink>
+          </p>
         </li>
       ))}
     </BoardBlock>

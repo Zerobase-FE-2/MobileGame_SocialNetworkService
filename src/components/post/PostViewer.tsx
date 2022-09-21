@@ -30,10 +30,12 @@ const PostViewer = ({
   post,
   error,
   loading,
+  actionButtons,
 }: {
   post: any;
   error: any;
   loading: boolean;
+  actionButtons: any;
 }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
@@ -46,7 +48,7 @@ const PostViewer = ({
     return null;
   }
 
-  const { title, user, body, publishedDate, tags } = post;
+  const { category, title, user, body, publishedDate, tags } = post;
 
   return (
     <PostViewerBlock>
@@ -56,12 +58,14 @@ const PostViewer = ({
       <PostHead>
         <h1>{title}</h1>
         <SubInfo
+          category={category}
           username={user.username}
           publishedDate={new Date(publishedDate)}
           hasMarginTop
         ></SubInfo>
         <Tags tags={tags} />
       </PostHead>
+      {actionButtons}
       <PostContent dangerouslySetInnerHTML={{ __html: body }} />
     </PostViewerBlock>
   );
