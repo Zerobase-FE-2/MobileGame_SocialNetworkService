@@ -15,14 +15,17 @@ const Nav = styled.nav`
   background-color: #aadbff;
 `;
 
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Logo = styled.h1`
-  color: white;
   font-weight: 600;
   margin-left: 1rem;
 `;
 
 const Login = styled.span`
-  color: white;
   font-weight: 600;
   margin-right: 1rem;
 `;
@@ -31,8 +34,8 @@ export const Navbar = () => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
-      <div className="flex items-center">
-        {clicked ? (
+      <Div>
+        {/* {clicked ? (
           <XMarkIcon
             onClick={() => setClicked(!clicked)}
             className="w-8 h-10 pl-2 text-white bg-blue-600"
@@ -42,7 +45,7 @@ export const Navbar = () => {
             onClick={() => setClicked(!clicked)}
             className="w-8 h-10 pl-2 text-white bg-blue-600"
           />
-        )}
+        )} */}
         <Nav>
           <Logo>
             <Link to={'/'}>MobileGame-SNS</Link>
@@ -55,7 +58,7 @@ export const Navbar = () => {
           />
           <Login>Login</Login>
         </Nav>
-      </div>
+      </Div>
       {clicked && <NavSideBar clicked={clicked} setClicked={setClicked} />}
     </>
   );

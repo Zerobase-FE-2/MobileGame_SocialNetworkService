@@ -1,44 +1,58 @@
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
-const CommunitySection = tw.section`
-flex bg-gray-300 text-black
+const CommunitySection = styled.section`
+  display: flex;
+  color: black;
+  background-color: #f1f1f1;
+  nav {
+    width: 12rem;
+    height: 18rem;
+    margin-top: 2rem;
+    margin-left: 12rem;
+    background-color: white;
+  }
+  li {
+    margin: 1rem;
+  }
 `;
 
-const SideMenu = tw.div`
-flex flex-col
+const SideMenu = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const CategoryDiv = tw.nav`
-w-48 h-72 mt-8 ml-48 bg-white
+const PopularDiv = styled.div`
+  width: 12rem;
+  height: 24rem;
+  margin: 2rem 0 2rem 12rem;
+  background-color: white;
 `;
 
-const CategoryList = tw.li`
-m-4
+const CommunityArticle = styled.article`
+  width: full;
+  margin: 2rem 12rem 2rem 2rem;
+  background-color: white;
 `;
 
-const PopularDiv = tw.div`
-w-48 h-96 mt-8 mb-8 ml-48 bg-white
-`;
-
-const CommunityArticle = tw.article`
-w-full mt-8 ml-8 mr-48 mb-8 bg-white
+const Title = styled.h2`
+  margin: 1rem;
 `;
 
 export const CommunityPage = () => {
   return (
     <CommunitySection>
       <SideMenu>
-        <CategoryDiv>
-          <h2 className="m-4">카테고리</h2>
+        <div>
+          <Title>카테고리</Title>
           <ul>
-            <CategoryList>전체</CategoryList>
-            <CategoryList>자유 게시판</CategoryList>
-            <CategoryList>질문 게시판</CategoryList>
-            <CategoryList>기타</CategoryList>
+            <li>전체</li>
+            <li>자유 게시판</li>
+            <li>질문 게시판</li>
+            <li>기타</li>
           </ul>
-        </CategoryDiv>
+        </div>
         <PopularDiv>
-          <h2 className="m-4">인기 게시글</h2>
+          <Title>인기 게시글</Title>
         </PopularDiv>
       </SideMenu>
       <CommunityArticle></CommunityArticle>

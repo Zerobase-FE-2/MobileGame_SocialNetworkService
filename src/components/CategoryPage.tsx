@@ -18,6 +18,9 @@ const CategorySection = styled.section`
     background-color: white;
     margin: 0 1rem;
   }
+  ul {
+    padding: 0;
+  }
   li {
     color: black;
     padding: 0.5rem;
@@ -58,12 +61,14 @@ const ProductDesc = styled.div`
   h2 {
     font-weight: 600;
     color: black;
+    padding-top: 0;
   }
   p {
     width: full;
-    height: 3.5rem;
+    height: 3rem;
     padding: 0.5rem;
     overflow: hidden;
+    margin-top: 0;
   }
 `;
 

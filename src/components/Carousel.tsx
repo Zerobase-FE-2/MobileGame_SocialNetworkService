@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
 
 const CarouselSlider = styled.div`
-  width: 100vw;
+  width: full;
   height: 18rem;
   background-color: #f1f1f1;
+  text-align: center;
 
   img {
-    width: 100vw;
-    max-height: 18rem;
+    width: 73vw;
+    height: 18rem;
+
+    @media (max-width: 1024px) {
+      width: 100vw;
+    }
   }
 `;
 

@@ -1,31 +1,48 @@
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import axios from 'axios';
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 import { API_URL } from '../App';
 
-const Section = tw.section`
-min-h-full bg-gray-300
+const Section = styled.section`
+min-height : full
+background-color : #f1f1f1;
+article {
+  display : flex;
+  padding : 3rem;
+  background-color : white;
+}
 `;
 
-const Article = tw.article`
-flex p-4 bg-white p-12
+const DescDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1rem;
 `;
 
-const DescDiv = tw.div`
-flex flex-col justify-between ml-4
+const Title = styled.h2`
+  color: black;
+  font-size: xx-large;
+  font-weight: 600;
+  margin-top: 0;
 `;
 
-const DescTitle = tw.h2`
-font-bold text-2xl text-black
+const Image = styled.img`
+  width: 12rem;
+  height: 12rem;
+  border-radius: 10px;
 `;
 
-const DescCategory = tw.p`
-font-semibold text-black
+const DescCategory = styled.p`
+  color: black;
+  font-weight: 600;
+  margin-top: 0;
 `;
 
-const DescP = tw.p`
-text-black
+const DescP = styled.p`
+  color: black;
+  margin-top: 0;
 `;
 
 export const ProductPage = () => {
@@ -38,19 +55,15 @@ export const ProductPage = () => {
   const current = data.find((item: any) => item.id == params.docId);
   return (
     <Section>
-      <Article>
-        <img
-          src={current.image}
-          alt={current.title}
-          className="w-56 h-56 rounded"
-        />
+      <article>
+        <Image src={current.image} alt={current.title} />
         <DescDiv>
-          <DescTitle>{current.title}</DescTitle>
+          <Title>{current.title}</Title>
           <DescCategory>{current.category}</DescCategory>
           <DescP>{current.company}</DescP>
           <DescP>{current.description}</DescP>
         </DescDiv>
-      </Article>
+      </article>
       <div>
         <h2>Comments</h2>
         <form action="">

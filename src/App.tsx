@@ -6,13 +6,14 @@ import { Navbar } from './components/NavBar';
 import { Carousel } from './components/Carousel';
 import { Footer } from './components/Footer';
 
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
 export const API_URL =
   'https://run.mocky.io/v3/3c8d01cf-810b-4471-8d45-62f8911aad8f';
 
-const RootDiv = tw.div`
-relative box-border
+const RootDiv = styled.div`
+  box-sizing: border;
+  position: relative;
 `;
 
 function App() {

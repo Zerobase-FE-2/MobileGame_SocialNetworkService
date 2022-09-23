@@ -1,29 +1,82 @@
-import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
 
-const MainSection = tw.section`
-h-full flex flex-col lg:grid lg:grid-cols-2 pt-4 gap-4 bg-gray-300 lg:px-48 pb-12
+const MainSection = styled.section`
+  height: full;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 1rem 3rem 1rem;
+  background-color: #f1f1f1;
+  article {
+    display: flex;
+    flex-direction: column;
+    height: full;
+    background-color: #3284ff;
+    border-radius: 10px;
+  }
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 12rem 3rem 12rem;
+  }
 `;
-const TopList = tw.article`
-row-span-2 flex flex-col h-full bg-blue-500 rounded shadow
+const TopList = styled.article`
+  display: flex;
+  flex-direction: column;
+  height: full;
+  background-color: #3284ff;
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    grid-row: 1 / span 2;
+  }
+  @media (max-width: 1024px) {
+    margin: 1rem 3rem 0 3rem;
+  }
 `;
-const TopMenu = tw.div`
-flex justify-between text-white
+
+const TopUl = styled.ul`
+  height: 27.35rem;
+  border-radius: 0 0 10px 10px;
+  background-color: white;
+  margin: 0;
+  padding: 0;
 `;
-const CategoryList = tw.ul`
-flex
+
+const OtherUl = styled.ul`
+  height: 12rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 0 10px 10px;
+  background-color: white;
 `;
-const Category = tw.li`
-p-2
+
+const TopMenu = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: white;
 `;
-const Article = tw.article`
-bg-blue-500 rounded shadow
+const CategoryList = styled.ul`
+  display: flex;
+  margin: 0;
+`;
+const Category = styled.li`
+  padding: 0.5rem;
+`;
+const Article = styled.article`
+  background-color: #3284ff;
+  border-radius: 10px;
+  @media (max-width: 1024px) {
+    margin: 1rem 3rem 0 3rem;
+  }
 `;
 
 const Title = styled.h2`
   color: white;
+  font-size: large;
   font-weight: 600;
   padding: 0.5rem;
+  margin: 0;
 `;
 
 export const MainPage = () => {
@@ -38,15 +91,15 @@ export const MainPage = () => {
             <Category>댓글 순</Category>
           </CategoryList>
         </TopMenu>
-        <ul className="h-48 lg:h-full bg-white rounded-b">내용</ul>
+        <TopUl>내용</TopUl>
       </TopList>
       <Article>
         <Title>자유 게시판</Title>
-        <ul className="h-48 bg-white rounded-b">내용</ul>
+        <OtherUl>내용</OtherUl>
       </Article>
       <Article>
         <Title>인기 게시물</Title>
-        <ul className="h-48 bg-white rounded-b">내용</ul>
+        <OtherUl>내용</OtherUl>
       </Article>
     </MainSection>
   );
