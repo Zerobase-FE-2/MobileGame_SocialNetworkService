@@ -1,17 +1,22 @@
 import { Link } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
 interface props {
   clicked: boolean;
   setClicked(clicked: boolean): void;
 }
 
-const SideBar = tw.ul`
-absolute w-48 h-full bg-blue-500
+const SideBar = styled.ul`
+  position: absolute;
+  width: 12rem;
+  height: 100vh;
+  background-color: #aadbff;
 `;
 
-const SideBarList = tw.li`
-px-4 py-2 text-white
+const SideBarList = styled.li`
+  padding: 1rem 0.5rem;
+  color: white;
 `;
 
 export const NavSideBar = (props: props) => {

@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 
-const CarouselSlider = tw.div`
-w-full h-72 bg-gray-300
+const CarouselSlider = styled.div`
+  width: 100vw;
+  height: 18rem;
+  background-color: #f1f1f1;
+
+  img {
+    width: 100vw;
+    max-height: 18rem;
+  }
 `;
 
 const randomInt = (docs: []): number => {
@@ -22,11 +30,7 @@ export const Carousel = ({ docs }: any) => {
   return (
     <CarouselSlider>
       <Link to={`/${docs[num].id}`}>
-        <img
-          className="w-full max-h-full"
-          src={docs[num].screenshot[0]}
-          alt={docs[num].title}
-        />
+        <img src={docs[num].screenshot[0]} alt={docs[num].title} />
       </Link>
     </CarouselSlider>
   );

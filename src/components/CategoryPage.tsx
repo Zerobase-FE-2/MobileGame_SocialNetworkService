@@ -3,29 +3,98 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useSWR from 'swr';
 
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
 import { API_URL } from '../App';
 
-const CategorySection = tw.section`
-flex justify-around pt-4 bg-gray-300
+const CategorySection = styled.section`
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+  background-color: #f1f1f1;
+  nav {
+    width: 30rem;
+    height: fit-content;
+    background-color: white;
+    margin: 0 1rem;
+  }
+  li {
+    color: black;
+    padding: 0.5rem;
+  }
+  h2 {
+    font-weight: 600;
+    color: black;
+    padding: 0.5rem;
+  }
+  article {
+    width: full;
+    min-height: 100vh;
+    background-color: white;
+    margin-bottom: 1rem;
+  }
 `;
 
-const CategoryNav = tw.nav`
-w-60 min-h-full h-full bg-white mx-4
+const Products = styled.div`
+  display: flex;
+  width: full;
+  height: fit-content;
+  padding: 1rem;
+  figure {
+    flex-shrink: 0;
+    width: fit-content;
+    height: full;
+  }
+  img {
+    width: fit-content;
+    border-radius: 10px;
+  }
 `;
 
-const CategoryList = tw.li`
-p-2 text-black hover:cursor-pointer
+const ProductDesc = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  h2 {
+    font-weight: 600;
+    color: black;
+  }
+  p {
+    width: full;
+    height: 3.5rem;
+    padding: 0.5rem;
+    overflow: hidden;
+  }
 `;
 
-const Article = tw.article`
-w-full min-h-screen bg-white mb-4
+const PopularList = styled.div`
+  width: 40rem;
+  height: 24rem;
+  background-color: white;
+  margin: 0 1rem;
+
+  h2 {
+    font-weight: 600;
+    padding: 0.5rem;
+    color: black;
+  }
 `;
 
-const PopularList = tw.div`
-w-72 h-96 bg-white mx-4
-`;
+// const CategoryNav = tw.nav`
+// w-60 min-h-full h-full bg-white mx-4
+// `;
+
+// const li = tw.li`
+// p-2 text-black hover:cursor-pointer
+// `;
+
+// const Article = tw.article`
+// w-full min-h-screen bg-white mb-4
+// `;
+
+// const PopularList = tw.div`
+// w-72 h-96 bg-white mx-4
+// `;
 
 export const CategoryPage = () => {
   const [category, setCategory] = useState(null);
@@ -39,105 +108,97 @@ export const CategoryPage = () => {
 
   return (
     <CategorySection>
-      <CategoryNav>
-        <h2 className="p-2 font-semibold text-black">카테고리</h2>
+      <nav>
+        <h2>카테고리</h2>
         <ul>
-          <CategoryList onClick={() => setCategory(null)}>전체</CategoryList>
-          <CategoryList
+          <li onClick={() => setCategory(null)}>전체</li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             액션
-          </CategoryList>
-          <CategoryList
+          </li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             어드벤처
-          </CategoryList>
-          <CategoryList
+          </li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             롤플레잉
-          </CategoryList>
-          <CategoryList
+          </li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             자동차 경주
-          </CategoryList>
-          <CategoryList
+          </li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             시뮬레이션
-          </CategoryList>
-          <CategoryList
+          </li>
+          <li
             onClick={(event) => {
               const target = event.target as HTMLElement;
               setCategory(target.innerText);
             }}
           >
             캐주얼 게임
-          </CategoryList>
+          </li>
         </ul>
-      </CategoryNav>
-      <Article>
+      </nav>
+      <article>
         {category === null
           ? data.map((item: any) => (
-              <div className="w-full h-fit p-4 flex gap-4" key={item.id}>
-                <figure className="shrink-0 w-fit h-full">
-                  <img
-                    className="w-fit rounded"
-                    src={item.image}
-                    alt={item.title}
-                  />
+              <Products key={item.id}>
+                <figure>
+                  <img src={item.image} alt={item.title} />
                 </figure>
-                <div className="flex flex-col gap-4">
-                  <h2 className="text-black font-semibold">
+                <ProductDesc>
+                  <h2>
                     <Link to={`/${item.id}`}>{item.title}</Link>
                   </h2>
-                  <p className="w-full h-12 overflow-hidden">
+                  <p>
                     <Link to={`/${item.id}`}>{item.description}</Link>
                   </p>
-                </div>
-              </div>
+                </ProductDesc>
+              </Products>
             ))
           : data
               .filter((item: any) => item.category === category)
               .map((item: any) => (
-                <div className="w-full h-fit p-4 flex gap-4" key={item.id}>
-                  <figure className="shrink-0 w-fit h-full">
-                    <img
-                      className="w-fit rounded"
-                      src={item.image}
-                      alt={item.title}
-                    />
+                <Products key={item.id}>
+                  <figure>
+                    <img src={item.image} alt={item.title} />
                   </figure>
-                  <div className="flex flex-col gap-4">
-                    <h2 className="text-black font-semibold">
+                  <ProductDesc>
+                    <h2>
                       <Link to={`/${item.id}`}>{item.title}</Link>
                     </h2>
-                    <p className="w-full h-12 overflow-hidden">
+                    <p>
                       <Link to={`/${item.id}`}>{item.description}</Link>
                     </p>
-                  </div>
-                </div>
+                  </ProductDesc>
+                </Products>
               ))}
-      </Article>
+      </article>
       <PopularList>
-        <h2 className="p-2 font-semibold text-black">인기 게임</h2>
+        <h2>인기 게임</h2>
       </PopularList>
     </CategorySection>
   );

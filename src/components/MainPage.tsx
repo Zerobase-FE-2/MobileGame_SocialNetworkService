@@ -1,31 +1,29 @@
 import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
 const MainSection = tw.section`
 h-full flex flex-col lg:grid lg:grid-cols-2 pt-4 gap-4 bg-gray-300 lg:px-48 pb-12
 `;
-
 const TopList = tw.article`
 row-span-2 flex flex-col h-full bg-blue-500 rounded shadow
 `;
-
 const TopMenu = tw.div`
 flex justify-between text-white
 `;
-
 const CategoryList = tw.ul`
 flex
 `;
-
 const Category = tw.li`
 p-2
 `;
-
 const Article = tw.article`
 bg-blue-500 rounded shadow
 `;
 
-const Title = tw.h2`
-p-2 text-white font-semibold
+const Title = styled.h2`
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
 `;
 
 export const MainPage = () => {

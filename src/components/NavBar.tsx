@@ -4,18 +4,27 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import { NavSideBar } from './NavSideBar';
 
-import tw from 'tailwind-styled-components';
+import styled from 'styled-components';
 
-const Nav = tw.nav`
-w-full h-10 flex justify-between items-center bg-blue-600
+const Nav = styled.nav`
+  width: 100vw;
+  height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #aadbff;
 `;
 
-const Logo = tw.h1`
-text-white font-bold ml-4
+const Logo = styled.h1`
+  color: white;
+  font-weight: 600;
+  margin-left: 1rem;
 `;
 
-const Login = tw.span`
-text-white font-semibold mr-4 flex-end
+const Login = styled.span`
+  color: white;
+  font-weight: 600;
+  margin-right: 1rem;
 `;
 
 export const Navbar = () => {

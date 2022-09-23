@@ -51,6 +51,13 @@ export const ProductPage = () => {
           <DescP>{current.description}</DescP>
         </DescDiv>
       </Article>
+      <div>
+        <h2>Comments</h2>
+        <form action="">
+          <input type="text" name="review" id="reviewPlace" />
+          <input type="submit" value="등록" />
+        </form>
+      </div>
     </Section>
   );
 };
