@@ -85,22 +85,6 @@ const PopularList = styled.div`
   }
 `;
 
-// const CategoryNav = tw.nav`
-// w-60 min-h-full h-full bg-white mx-4
-// `;
-
-// const li = tw.li`
-// p-2 text-black hover:cursor-pointer
-// `;
-
-// const Article = tw.article`
-// w-full min-h-screen bg-white mb-4
-// `;
-
-// const PopularList = tw.div`
-// w-72 h-96 bg-white mx-4
-// `;
-
 export const CategoryPage = () => {
   const [category, setCategory] = useState(null);
 
