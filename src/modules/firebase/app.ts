@@ -1,18 +1,27 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { getDatabase } from 'firebase/database';
 
+const {
+  VITE_FIREBASE_API_KEY,
+  VITE_FIREBASE_AUTH_DOMAIN,
+  VITE_FIREBASE_DATA_URL,
+  VITE_FIREBASE_PROJECT_ID,
+  VITE_FIREBASE_STORAGE_BUCKET,
+  VITE_FIREBASE_MESSAGING_SENDER_ID,
+  VITE_FIREBASE_APP_ID,
+  VITE_FIREBASE_MEASUREMENT_ID,
+} = import.meta.env;
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDu0heEkPgncLxvQEzrNP5vWFaHXcVVnPA',
-  authDomain: 'mobilegamereview-36ec7.firebaseapp.com',
-  projectId: 'mobilegamereview-36ec7',
-  storageBucket: 'mobilegamereview-36ec7.appspot.com',
-  messagingSenderId: '512147019903',
-  appId: '1:512147019903:web:632482c485b0e3dd38874a',
-  measurementId: 'G-GJBBEGSN9V',
-  databaseURL: 'https://mobilegamereview-36ec7-default-rtdb.firebaseio.com',
+  apiKey: VITE_FIREBASE_API_KEY,
+  authDomain: VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: VITE_FIREBASE_DATA_URL,
+  projectId: VITE_FIREBASE_PROJECT_ID,
+  storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: VITE_FIREBASE_APP_ID,
+  measurementId: VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const database = getDatabase(app);
