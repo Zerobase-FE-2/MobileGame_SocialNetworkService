@@ -85,6 +85,20 @@ const PopularList = styled.div`
   }
 `;
 
+const CreateBtn = styled.button`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #69a5ff;
+  &:hover {
+    background-color: #3284ff;
+  }
+`;
+
 export const CategoryPage = () => {
   const [category, setCategory] = useState(null);
 
@@ -189,6 +203,9 @@ export const CategoryPage = () => {
       <PopularList>
         <h2>인기 게임</h2>
       </PopularList>
+      <CreateBtn>
+        <Link to={'/category/write'}>등록하기</Link>
+      </CreateBtn>
     </CategorySection>
   );
 };
