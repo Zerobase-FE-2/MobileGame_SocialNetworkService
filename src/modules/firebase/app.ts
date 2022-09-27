@@ -1,18 +1,22 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getDatabase } from 'firebase/database';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDu0heEkPgncLxvQEzrNP5vWFaHXcVVnPA',
-  authDomain: 'mobilegamereview-36ec7.firebaseapp.com',
-  projectId: 'mobilegamereview-36ec7',
-  storageBucket: 'mobilegamereview-36ec7.appspot.com',
-  messagingSenderId: '512147019903',
-  appId: '1:512147019903:web:632482c485b0e3dd38874a',
-  measurementId: 'G-GJBBEGSN9V',
-  databaseURL: 'https://mobilegamereview-36ec7-default-rtdb.firebaseio.com',
+  apiKey: 'AIzaSyCzHyd3UBuolOP48TM660HD6Te_pTuvp10',
+  authDomain: 'mobile-game-sns-64429.firebaseapp.com',
+  databaseURL: 'https://mobile-game-sns-64429-default-rtdb.firebaseio.com',
+  projectId: 'mobile-game-sns-64429',
+  storageBucket: 'mobile-game-sns-64429.appspot.com',
+  messagingSenderId: '277877324483',
+  appId: '1:277877324483:web:f73514bf038c860a568076',
+  measurementId: 'G-NWTM9CX5WD',
 };
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-export const database = getDatabase(app);
+const database = getDatabase(app);
+const firestore = getFirestore();
+
+export { database, firestore };
