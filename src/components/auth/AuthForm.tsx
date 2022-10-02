@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import { AnyAction } from '@reduxjs/toolkit';
 
 const AuthFormBlock = styled.div`
   h3 {
