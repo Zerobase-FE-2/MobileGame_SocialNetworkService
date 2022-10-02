@@ -1,18 +1,18 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDu0heEkPgncLxvQEzrNP5vWFaHXcVVnPA',
-  authDomain: 'mobilegamereview-36ec7.firebaseapp.com',
-  projectId: 'mobilegamereview-36ec7',
-  storageBucket: 'mobilegamereview-36ec7.appspot.com',
-  messagingSenderId: '512147019903',
-  appId: '1:512147019903:web:632482c485b0e3dd38874a',
-  measurementId: 'G-GJBBEGSN9V',
-  databaseURL: 'https://mobilegamereview-36ec7-default-rtdb.firebaseio.com',
+  apiKey: import.meta.env.VITE_APP_APIKEY,
+  authDomain: import.meta.env.VITE_APP_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_APP_PROJECTID,
+  storageBucket: import.meta.env.VITE_APP_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APP_APPID,
+  measurementId: import.meta.env.VITE_APP_MEASUREMENTID,
+  databaseURL: import.meta.env.VITE_APP_DATABASEURL,
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const auth = getAuth(app);
 export const database = getDatabase(app);

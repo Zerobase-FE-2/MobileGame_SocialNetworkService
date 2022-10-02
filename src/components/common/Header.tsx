@@ -36,7 +36,7 @@ const UserInfo = styled.div`
   margin-right: 1rem;
 `;
 
-const Header = () => {
+const Header = ({ user, onLogOut }: any) => {
   return (
     <>
       <HeaderBlock>
@@ -44,9 +44,16 @@ const Header = () => {
           <Link to="/" className="logo">
             MoReview
           </Link>
-          <div className="right">
-            <Button to="/login">로그인</Button>
-          </div>
+          {user ? (
+            <div className="right">
+              <UserInfo>{user.email}</UserInfo>
+              <Button onClick={onLogOut}>로그아웃</Button>
+            </div>
+          ) : (
+            <div className="right">
+              <Button to="/login">로그인</Button>
+            </div>
+          )}
         </Wrapper>
       </HeaderBlock>
       <Spacer />
