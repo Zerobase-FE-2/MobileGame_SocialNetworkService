@@ -1,19 +1,37 @@
-import { comments } from '../../lib/fakeData/comments';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import Button from '../common/Button';
 
-const Comment = () => {
+const CommentLi = styled.li`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid ${palette.gray[5]};
+  border-radius: 10px;
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 90%;
+  margin-right: 5px;
+  padding-left: 7px;
+  &:focus {
+    color: $oc-teal-7;
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+const CommentSpan = styled(Button)`
+  margin-right: 5px;
+`;
+
+const Comment = ({ comment }: any) => {
   return (
-    <>
-      <input type="text" />
-      <button>입력</button>
-      <ul>
-        {comments.map((comment) => (
-          <li>
-            <span>{comment.username}</span>
-            {comment.text}
-          </li>
-        ))}
-      </ul>
-    </>
+    <CommentLi>
+      <CommentSpan>{comment.username}</CommentSpan>
+      {comment.text}
+    </CommentLi>
   );
 };
 export default Comment;
