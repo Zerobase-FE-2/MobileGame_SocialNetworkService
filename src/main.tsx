@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
-
 import rootReducer, { rootSaga } from './modules/redux';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -14,6 +13,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
   reducer: rootReducer,
   middleware: [sagaMiddleware],
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 sagaMiddleware.run(rootSaga);

@@ -105,14 +105,17 @@ export const listPosts = async ({ page, username, tag, category }: any) => {
 
       if (username) {
         posts = filterObjectInObject(posts, 'user', 'username', username);
+        console.log(posts);
       }
       if (tag) {
         posts = filterIncludeObject(posts, 'tags', tag);
+        console.log(posts);
       }
       if (category && category !== 'all') {
         posts = filterObject(posts, 'category', category);
+        console.log(posts);
       }
-
+      console.log(posts);
       return posts;
     }
   } catch (e) {

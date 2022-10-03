@@ -1,27 +1,32 @@
 import HeaderContainer from '../containers/common/HeaderContainer';
+import CarouselContainer from '../containers/main/CarouselContainer';
 import MainPageContainer from '../containers/main/MainPageContainer';
 import FooterContainer from '../containers/common/FooterContainer';
-import { firestore } from '../modules/firebase/app';
-import { doc, getDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { READ_PRODUCTS } from '../modules/redux/productsSlice';
+import { useAppSelector, useAppDispatch } from '../modules/redux/hook';
 const MainPage = () => {
-  const docRef = doc(firestore, 'bucket', 'mobileGames');
-  async function docLoad() {
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log(docSnap.data());
-    } else {
-      console.log('NO DATA');
-    }
-  }
+  const { username } = useParams();
+  const [searchParams] = useSearchParams();
+  const { posts, error, loading } = useAppSelector(
+    ({ posts, loading }: { posts: any; loading: any }) => ({
+      posts: posts.posts,
+      error: posts.error,
+      loading: loading['products/READ_PRODUCTS'],
+    })
+  );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    docLoad();
+    const category = searchParams.get('category');
+    dispatch(READ_PRODUCTS({ username, category }));
   }, []);
 
   return (
     <>
       <HeaderContainer />
+      {/* <CarouselContainer /> */}
       <MainPageContainer />
       <FooterContainer />
     </>
