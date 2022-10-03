@@ -1,4 +1,4 @@
-import CommentContainer from '../containers/comment/CommentContainer';
+import CommentContainer from '../containers/comment/CommentsContainer';
 import HeaderContainer from '../containers/common/HeaderContainer';
 import PostViewerContainer from '../containers/post/PostViewerContainer';
 

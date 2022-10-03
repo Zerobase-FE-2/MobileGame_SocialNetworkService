@@ -7,6 +7,8 @@ import postReducer, { postSaga } from './postSlice';
 import postsReducer, { postsSaga } from './postsSlice';
 import userReducer, { userSaga } from './userSlice';
 import authReducer, { authSaga } from './authSlice';
+import commentsReducer, { commentsSaga } from './commentsSlice';
+import commentReducer, { commentSaga } from './commentSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,10 +17,20 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   post: postReducer,
   posts: postsReducer,
+  comment: commentReducer,
+  comments: commentsReducer,
 });
 
 export function* rootSaga() {
-  yield all([userSaga(), writeSaga(), postSaga(), postsSaga(), authSaga()]);
+  yield all([
+    userSaga(),
+    writeSaga(),
+    postSaga(),
+    postsSaga(),
+    authSaga(),
+    commentSaga(),
+    commentsSaga(),
+  ]);
 }
 
 export default rootReducer;

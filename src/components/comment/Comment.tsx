@@ -26,12 +26,15 @@ const CommentSpan = styled(Button)`
   margin-right: 5px;
 `;
 
-const Comment = ({ comment }: any) => {
+const Comment = ({ comment, user, actionButtons }: any) => {
   return (
-    <CommentLi>
-      <CommentSpan>{comment.username}</CommentSpan>
-      {comment.text}
-    </CommentLi>
+    <>
+      <CommentLi>
+        <CommentSpan>{comment.user.username}</CommentSpan>
+        {comment.text}
+      </CommentLi>
+      {actionButtons}
+    </>
   );
 };
 export default Comment;

@@ -13,6 +13,7 @@ const filterObject = (obj: any, filter: any, filterValue: any) =>
           [val]: obj[val],
         };
   }, {});
+
 const filterObjectInObject = (
   obj: any,
   filter: any,

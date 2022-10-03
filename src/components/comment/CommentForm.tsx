@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { comments } from '../../lib/fakeData/comments';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import Comment from './Comment';
+import Responsive from '../common/Responsive';
+
+const FormBlock = styled(Responsive)``;
 const Form = styled.form`
   display: flex;
   align-items: center;
@@ -28,22 +29,20 @@ const StyledInput = styled.input`
   }
 `;
 
-const CommentUl = styled.ul`
-  width: 100%;
-`;
-const CommentForm = () => {
+const CommentForm = ({ form, onSubmit, onChange }: any) => {
   return (
-    <>
-      <Form>
-        <StyledInput type="text" />
+    <FormBlock>
+      <Form onSubmit={onSubmit}>
+        <StyledInput
+          name="text"
+          type="text"
+          value={form.text}
+          onChange={onChange}
+        />
         <Button>입력</Button>
       </Form>
-      <CommentUl>
-        {comments.map((comment) => (
-          <Comment comment={comment} />
-        ))}
-      </CommentUl>
-    </>
+    </FormBlock>
   );
 };
+
 export default CommentForm;
