@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { RootState } from '../../main';
+import { product } from '../../modules/redux/productsSlice';
 
 const Image = styled.img`
   width: 1024px;
@@ -13,24 +12,27 @@ const Image = styled.img`
   }
 `;
 
-const randomInt = (arr: []): number => {
+const randomInt = (arr: product[]): number => {
   return Math.floor(Math.random() * arr.length);
 };
 
-const CarouselSlider = () => {
-  const data = useSelector((state: RootState) => state.products);
-  const list = data.data.gameList;
-  const [img, setImg] = useState(randomInt(list as []));
+const CarouselSlider = ({ products, loading }: any) => {
+  const [img, setImg] = useState(randomInt(products));
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setImg(randomInt(list as []));
+      setImg(randomInt(products));
     }, 5000);
     return () => clearInterval(interval);
   }, []);
   return (
-    <Link to={`/${list[img].id}`}>
-      <Image src={list[img].screenshot[0]} alt={list[img].title} />
-    </Link>
+    <>
+      {!loading && (
+        <Link to={`/${products[img].id}`}>
+          <Image src={products[img].screenshot[0]} alt={products[img].title} />
+        </Link>
+      )}
+    </>
   );
 };
 

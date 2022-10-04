@@ -28,7 +28,6 @@ const PostListContainer = () => {
     const page = parseInt(searchParams.get('page') as string, 10) || 1;
     const category = searchParams.get('category');
     dispatch(LIST_POSTS({ tag, username, page, category }));
-    const interval = setInterval(() => console.log(posts), 3000);
   }, [dispatch, searchParams, username]);
 
   return (

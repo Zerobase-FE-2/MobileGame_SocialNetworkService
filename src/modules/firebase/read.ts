@@ -6,9 +6,7 @@ export const readProduct = async () => {
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
-      let posts = { ...response.data().gameList };
-      console.log(posts);
-
+      let posts = response.data().gameList;
       return posts;
     }
   } catch (e) {

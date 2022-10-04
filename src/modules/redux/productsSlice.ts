@@ -3,7 +3,7 @@ import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
 import { readProduct } from '../firebase/read';
 
-interface product {
+export interface product {
   category: string;
   company: string;
   description: string;
@@ -39,14 +39,16 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    READ_PRODUCTS: (state, { payload: { username, category } }) => initialState,
-    READ_PRODUCTS_SUCCESS: (state, { payload: posts }) => ({
+    READ_PRODUCTS: (state) => ({
       ...state,
-      ...posts,
+    }),
+    READ_PRODUCTS_SUCCESS: (state, { payload: products }) => ({
+      ...state,
+      data: products,
     }),
     READ_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error,
+      error: error,
     }),
   },
 });

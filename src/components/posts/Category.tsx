@@ -9,6 +9,7 @@ const CategoryBlock = styled.ul`
   padding: 5px;
   justify-content: center;
   width: 130px;
+  max-height: 30vh;
   background-color: white;
   border-radius: 10px;
   li {

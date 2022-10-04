@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
 import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
 
@@ -18,7 +17,7 @@ const CategorySection = styled.section`
   justify-content: center;
   align-content: center;
   width: 1024px;
-  height: 80vh;
+  height: full;
   padding: 1rem;
   margin: 0 auto;
   background-color: ${palette.black[0]};
@@ -40,30 +39,31 @@ const CategorySection = styled.section`
 `;
 
 const CategoryContainer = () => {
-  const { username } = useParams();
-  const [searchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
-  const { posts, error, loading } = useAppSelector(
-    ({ posts, loading }: { posts: any; loading: any }) => ({
-      posts: posts.posts,
-      error: posts.error,
+  const { products, error, loading } = useAppSelector(
+    ({ products, loading }: { products: any; loading: any }) => ({
+      products: products.data,
+      error: products.error,
       loading: loading['products/READ_PRODUCTS'],
     })
   );
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    const category = searchParams.get('category');
-    dispatch(READ_PRODUCTS({ username, category }));
-    const interval = setInterval(() => console.log(posts), 3000);
+    dispatch(READ_PRODUCTS());
   }, [dispatch]);
   return (
-    <CategorySection>
-      <Category categories={categories} />
-      <MainBoard loading={loading} error={error} posts={posts} />
-      <PopularBoard />
-      <button>
-        <Link to={'/create'}>등록</Link>
-      </button>
-    </CategorySection>
+    <>
+      {!loading && products && (
+        <CategorySection>
+          <Category categories={categories} />
+          <PopularBoard />
+          <MainBoard products={products} loading={loading} />
+          <button>
+            <Link to={'/create'}>등록</Link>
+          </button>
+        </CategorySection>
+      )}
+    </>
   );
 };
 
