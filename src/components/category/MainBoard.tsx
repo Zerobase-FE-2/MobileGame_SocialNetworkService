@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ProductTable = styled.article`
@@ -47,29 +47,84 @@ const ProductDesc = styled.div`
     margin-top: 0;
   }
 `;
+const filterProducts = (setFunc: any, url: any) => {
+  switch (url) {
+    case 'action':
+      setFunc('액션');
+      break;
+    case 'adventure':
+      setFunc('어드벤처');
+      break;
+    case 'roleplay':
+      setFunc('롤플레잉');
+      break;
+    case 'simulation':
+      setFunc('시뮬레이션');
+      break;
+    case 'strategy':
+      setFunc('전략');
+      break;
+    case 'sports':
+      setFunc('스포츠');
+      break;
+    case 'racing':
+      setFunc('자동차 경주');
+      break;
+    case 'casual':
+      setFunc('캐주얼 게임');
+      break;
+    default:
+      setFunc(null);
+      break;
+  }
+};
+
 const MainBoard = ({ products, loading }: any) => {
+  const location = useLocation();
+  let url = new URLSearchParams(location.search).get('category');
+  const [category, setCategory] = useState(null);
   useEffect(() => {
-    console.log(products);
-  }, []);
+    filterProducts(setCategory, url);
+  }, [location]);
   return (
     <ProductTable>
-      {!loading &&
-        products &&
-        products.map((product: any) => (
-          <Product key={product.id}>
-            <figure>
-              <img src={product.image} alt={product.title} />
-            </figure>
-            <ProductDesc>
-              <h2>
-                <Link to={`/${product.id}`}>{product.title}</Link>
-              </h2>
-              <p>
-                <Link to={`/${product.id}`}>{product.description}</Link>
-              </p>
-            </ProductDesc>
-          </Product>
-        ))}
+      {category === null
+        ? !loading &&
+          products &&
+          products.map((product: any) => (
+            <Product key={product.id}>
+              <figure>
+                <img src={product.image} alt={product.title} />
+              </figure>
+              <ProductDesc>
+                <h2>
+                  <Link to={`/${product.id}`}>{product.title}</Link>
+                </h2>
+                <p>
+                  <Link to={`/${product.id}`}>{product.description}</Link>
+                </p>
+              </ProductDesc>
+            </Product>
+          ))
+        : !loading &&
+          products &&
+          products
+            .filter((product: any) => product.category === category)
+            .map((product: any) => (
+              <Product key={product.id}>
+                <figure>
+                  <img src={product.image} alt={product.title} />
+                </figure>
+                <ProductDesc>
+                  <h2>
+                    <Link to={`/${product.id}`}>{product.title}</Link>
+                  </h2>
+                  <p>
+                    <Link to={`/${product.id}`}>{product.description}</Link>
+                  </p>
+                </ProductDesc>
+              </Product>
+            ))}
     </ProductTable>
   );
 };
