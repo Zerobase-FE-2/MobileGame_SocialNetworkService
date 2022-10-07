@@ -1,14 +1,23 @@
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { useAppSelector } from '../../modules/redux/hook';
 
 const Section = styled.section`
+display : flex;
+flex-direction : column;
+justify-content : center;
 min-height : full
 background-color : ${palette.black[0]};
 article {
   display : flex;
-  padding : 3rem;
-  background-color : white;
+  width: 1024px;
+  padding : 1rem;
+  background-color : ${palette.blue[0]};
+  margin : 0 auto;
+}
+img {
+  width: 1024px;
+  height: 18rem;
+  margin: 0 auto;
 }
 `;
 
@@ -16,7 +25,6 @@ const DescDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 1rem;
 `;
 
 const Title = styled.h2`
@@ -24,12 +32,6 @@ const Title = styled.h2`
   font-size: xx-large;
   font-weight: 600;
   margin-top: 0;
-`;
-
-const Image = styled.img`
-  width: 12rem;
-  height: 12rem;
-  border-radius: 10px;
 `;
 
 const DescCategory = styled.p`
@@ -43,16 +45,17 @@ const DescP = styled.p`
   margin-top: 0;
 `;
 
-const ProductDesc = () => {
+const ProductDesc = ({ params, products }: any) => {
+  const product = products.find((item: any) => item.id == params.id);
   return (
-    <Section>
+    <Section id={params.id}>
+      <img src={product.image} alt={product.title} />
       <article>
-        <Image src={current.image} alt={current.title} />
         <DescDiv>
-          <Title>{current.title}</Title>
-          <DescCategory>{current.category}</DescCategory>
-          <DescP>{current.company}</DescP>
-          <DescP>{current.description}</DescP>
+          <Title>{product.title}</Title>
+          <DescCategory>{product.category}</DescCategory>
+          <DescP>{product.company}</DescP>
+          <DescP>{product.description}</DescP>
         </DescDiv>
       </article>
     </Section>

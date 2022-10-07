@@ -28,7 +28,7 @@ const CarouselSlider = ({ products, loading }: any) => {
   return (
     <>
       {!loading && (
-        <Link to={`/${products[img].id}`}>
+        <Link to={`/category/${products[img].id}`}>
           <Image src={products[img].screenshot[0]} alt={products[img].title} />
         </Link>
       )}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
 
 const ProductTable = styled.article`
   grid-row: 1 / span 2;
@@ -18,7 +19,7 @@ const Product = styled.div`
   height: fit-content;
   padding: 1rem;
   margin-top: 1rem;
-  background-color: white;
+  background-color: ${palette.blue[0]};
   border-radius: 10px;
   figure {
     flex-shrink: 0;
@@ -26,7 +27,8 @@ const Product = styled.div`
     height: full;
   }
   img {
-    width: fit-content;
+    width: 120px;
+    height: 120px;
     border-radius: 10px;
   }
 `;
@@ -98,10 +100,12 @@ const MainBoard = ({ products, loading }: any) => {
               </figure>
               <ProductDesc>
                 <h2>
-                  <Link to={`/${product.id}`}>{product.title}</Link>
+                  <Link to={`/category/${product.id}`}>{product.title}</Link>
                 </h2>
                 <p>
-                  <Link to={`/${product.id}`}>{product.description}</Link>
+                  <Link to={`/category/${product.id}`}>
+                    {product.description}
+                  </Link>
                 </p>
               </ProductDesc>
             </Product>

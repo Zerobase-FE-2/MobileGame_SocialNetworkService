@@ -6,6 +6,7 @@ import PostListPage from './page/PostListPage';
 import PostPage from './page/PostPage';
 import WritePage from './page/WritePage';
 import CreatePage from './page/CreatePage';
+import ProductPage from './page/ProductPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/category" element={<CategoryPage />} />
+        <Route path="/category/:id" element={<ProductPage />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/board" element={<PostListPage />} />
         <Route path="/boardwrite" element={<WritePage />} />

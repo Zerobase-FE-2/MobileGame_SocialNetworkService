@@ -29,6 +29,9 @@ const WriteProductSection = styled.section`
     border: none;
     background-color: ${palette.blue[1]};
   }
+  textarea {
+    resize: none;
+  }
 `;
 const BtnDiv = styled.div`
   display: flex;
