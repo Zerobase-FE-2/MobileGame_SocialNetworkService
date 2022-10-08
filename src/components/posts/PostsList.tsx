@@ -7,11 +7,10 @@ import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 import Category from './Category';
 import BestBoards from './BestBoards';
-import { categories } from '../../lib/fakeData/categories';
 
 const Wrapper = styled(Responsive)`
   display: flex;
-  height: 90vh;
+  min-height: 90vh;
 `;
 
 const SideBlock = styled.div`
@@ -66,6 +65,7 @@ const PostItemBlock = styled.div`
   }
 `;
 
+const PAGE_PER_POST = 5;
 const PostItem = ({ post }: { post: any }) => {
   const { category, publishedDate, user, tags, title, body, _id } = post;
   return (
@@ -92,19 +92,16 @@ const PostList = ({
   showWriteButton,
   categories,
   boards,
-}: {
-  posts: any;
-  loading: any;
-  error: any;
-  showWriteButton: any;
-  categories: any;
-  boards: any;
-}) => {
+  page,
+}: any) => {
   if (error) {
     return <PostListBlock>에러가 발생 하였습니다.</PostListBlock>;
   }
   if (posts) {
-    posts = Object.values(posts);
+    posts = Object.values(posts).slice(
+      (page - 1) * PAGE_PER_POST,
+      page * PAGE_PER_POST
+    );
   }
 
   return (

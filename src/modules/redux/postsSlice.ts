@@ -6,7 +6,6 @@ import { listPosts } from '../firebase/write';
 const initialState = {
   posts: null,
   error: null,
-  lastPage: 1,
 };
 
 const listPostsSaga = createRequestSaga('posts/LIST_POSTS', listPosts);

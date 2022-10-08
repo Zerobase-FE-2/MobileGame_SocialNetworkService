@@ -99,7 +99,7 @@ export const readPost = async (id: string) => {
   }
 };
 
-export const listPosts = async ({ page, username, tag, category }: any) => {
+export const listPosts = async ({ username, tag, category }: any) => {
   const postRef = ref(database);
   try {
     const response = await get(child(postRef, `posts/`));

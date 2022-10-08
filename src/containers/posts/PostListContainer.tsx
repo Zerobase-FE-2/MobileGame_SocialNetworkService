@@ -9,6 +9,7 @@ import { users } from '../../lib/fakeData/user';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
 import { LIST_POSTS } from '../../modules/redux/postsSlice';
 
+const DEFAULT_PAGE = 1;
 const PostListContainer = () => {
   const { username } = useParams();
   const [searchParams] = useSearchParams();
@@ -22,12 +23,12 @@ const PostListContainer = () => {
     })
   );
   const user = users[0];
+  let page = parseInt(searchParams.get('page') as string, 10) || DEFAULT_PAGE;
 
   useEffect(() => {
     const tag = searchParams.get('tag');
-    const page = parseInt(searchParams.get('page') as string, 10) || 1;
     const category = searchParams.get('category');
-    dispatch(LIST_POSTS({ tag, username, page, category }));
+    dispatch(LIST_POSTS({ tag, username, category }));
   }, [dispatch, searchParams, username]);
 
   return (
@@ -36,6 +37,7 @@ const PostListContainer = () => {
         loading={loading}
         error={error}
         posts={posts}
+        page={page}
         showWriteButton={user}
         categories={categories}
         boards={boards}
