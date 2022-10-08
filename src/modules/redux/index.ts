@@ -5,7 +5,8 @@ import writeReducer, { writeSaga } from './writeSlice';
 import loadingReducer from './loadingSlice';
 import postReducer, { postSaga } from './postSlice';
 import postsReducer, { postsSaga } from './postsSlice';
-import userReducer, { userSaga } from './userSlice';
+import productsReducer, { readSaga } from './productsSlice';
+import userReducer from './userSlice';
 import authReducer, { authSaga } from './authSlice';
 
 const rootReducer = combineReducers({
@@ -15,10 +16,11 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   post: postReducer,
   posts: postsReducer,
+  products: productsReducer,
 });
 
 export function* rootSaga() {
-  yield all([userSaga(), writeSaga(), postSaga(), postsSaga(), authSaga()]);
+  yield all([writeSaga(), postSaga(), postsSaga(), authSaga(), readSaga()]);
 }
 
 export default rootReducer;

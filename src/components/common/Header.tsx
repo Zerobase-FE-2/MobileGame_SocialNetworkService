@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 
 const HeaderBlock = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100%;
   background: ${palette.blue[0]};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
