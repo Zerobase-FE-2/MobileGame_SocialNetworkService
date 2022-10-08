@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
 import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
 import ProductDesc from '../../components/product/ProductDesc';
 import WriteComment from '../../components/create/WriteComment';
+import Comments from '../../components/product/Comments';
 
 const ProductContainer = () => {
   let params = useParams();
@@ -25,6 +26,7 @@ const ProductContainer = () => {
         <>
           <ProductDesc params={params} products={products} />
           <WriteComment />
+          <Comments />
         </>
       )}
     </>

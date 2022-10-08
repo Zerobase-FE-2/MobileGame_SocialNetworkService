@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const PopularList = styled.div`
   width: 130px;
-  max-height: 50vh;
+  max-height: 320px;
   background-color: white;
   padding: 0.5rem;
   border-radius: 10px;

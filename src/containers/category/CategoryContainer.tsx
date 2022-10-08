@@ -55,8 +55,10 @@ const CategoryContainer = () => {
     <>
       {!loading && products && (
         <CategorySection>
-          <Category categories={categories} />
-          <PopularBoard />
+          <div>
+            <Category categories={categories} />
+            <PopularBoard />
+          </div>
           <MainBoard products={products} loading={loading} />
           <button>
             <Link to={'/create'}>등록</Link>
