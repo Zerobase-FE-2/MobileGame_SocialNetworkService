@@ -27,8 +27,8 @@ interface user {
 const PostViewerContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
+
   const { post, error, loading, user } = useAppSelector(
     ({ post, loading, user }: any) => ({
       post: post.post,

@@ -12,31 +12,46 @@ const WriteActionButtonContainer = () => {
     title,
     body,
     tags,
+    category,
+    view_cnt,
+    like_cnt,
     post,
     postError,
     originalPostId,
-    category,
     user,
   }: any = useAppSelector(
     ({ write, user }: { write: WriteState; user: any }) => ({
       title: write.title,
       body: write.body,
       tags: write.tags,
+      category: write.category,
+      view_cnt: write.view_cnt,
+      like_cnt: write.like_cnt,
       post: write.post,
       postError: write.postError,
       originalPostId: write.originalPostId,
-      category: write.category,
       user: user.user,
     })
   );
+
   const onPublish = () => {
     if (originalPostId) {
       dispatch(
-        UPDATE_POST({ title, body, tags, id: originalPostId, category })
+        UPDATE_POST({
+          title,
+          body,
+          tags,
+          category,
+          like_cnt,
+          view_cnt,
+          id: originalPostId,
+        })
       );
       return;
     }
-    dispatch(WRITE_POST({ title, body, tags, category, user }));
+    dispatch(
+      WRITE_POST({ title, body, tags, category, view_cnt, like_cnt, user })
+    );
   };
 
   const onCancel = () => {

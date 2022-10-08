@@ -44,12 +44,16 @@ export const writePost = async ({
   body,
   tags,
   category,
+  view_cnt,
+  like_cnt,
   user,
 }: {
   title: string;
   body: string;
   tags: string[];
   category: string;
+  view_cnt: number;
+  like_cnt: number;
   user: any;
 }) => {
   const uid = uuidv4();
@@ -61,6 +65,8 @@ export const writePost = async ({
       body,
       tags,
       category,
+      view_cnt,
+      like_cnt,
       publishedDate,
       user: {
         username: user.email,
@@ -75,6 +81,9 @@ export const writePost = async ({
     title,
     body,
     tags,
+    category,
+    view_cnt,
+    like_cnt,
     user: {
       username: users[0].username,
       _id: users[0]._id,
@@ -92,6 +101,8 @@ export const readPost = async (id: string) => {
     const response = await get(child(dbRef, `posts/${id}`));
 
     if (response.exists()) {
+      let { _id: uid, view_cnt } = response.val();
+      addViewCnt({ uid, view_cnt });
       return response.val();
     }
   } catch (e) {
@@ -155,6 +166,22 @@ export const removePost = async (id: any) => {
   const dbRef = ref(database);
   try {
     await remove(child(dbRef, `posts/${id}`));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const addViewCnt = async ({
+  uid,
+  view_cnt,
+}: {
+  uid: string;
+  view_cnt: number;
+}) => {
+  const updates: any = {};
+  updates[`/posts/` + uid + '/view_cnt'] = view_cnt + 1;
+  update(ref(database), updates);
+  try {
   } catch (e) {
     console.error(e);
   }

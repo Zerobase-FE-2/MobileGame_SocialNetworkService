@@ -20,6 +20,18 @@ const PostHead = styled.div`
     margin: 0;
   }
 `;
+const ViewSpan = styled.span`
+  display: block;
+  text-align: end;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: ${palette.gray[6]};
+  font-weight: bold;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  text-align: end;
+`;
 
 const PostContent = styled.div`
   font-size: 1.3125rem;
@@ -48,14 +60,16 @@ const PostViewer = ({
     return null;
   }
 
-  const { category, title, user, body, publishedDate, tags } = post;
+  const { category, title, user, body, publishedDate, tags, view_cnt } = post;
 
   return (
     <PostViewerBlock>
       <Helmet>
         <title>{title}</title>
       </Helmet>
+      {actionButtons}
       <PostHead>
+        <ViewSpan>조회수 {view_cnt}</ViewSpan>
         <h1>{title}</h1>
         <SubInfo
           category={category}
@@ -65,7 +79,7 @@ const PostViewer = ({
         ></SubInfo>
         <Tags tags={tags} />
       </PostHead>
-      {actionButtons}
+
       <PostContent dangerouslySetInnerHTML={{ __html: body }} />
     </PostViewerBlock>
   );
