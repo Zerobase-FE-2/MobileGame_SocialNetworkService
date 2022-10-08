@@ -68,7 +68,6 @@ const PostItemBlock = styled.div`
 const PAGE_PER_POST = 5;
 const PostItem = ({ post }: { post: any }) => {
   const { category, publishedDate, user, tags, title, body, _id } = post;
-  console.log('user', user);
   return (
     <PostItemBlock>
       <h2>

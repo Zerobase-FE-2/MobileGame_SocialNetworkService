@@ -1,4 +1,12 @@
-import { ref, child, get, set, update, remove } from 'firebase/database';
+import {
+  ref,
+  child,
+  get,
+  set,
+  update,
+  remove,
+  onValue,
+} from 'firebase/database';
 import { database } from './app';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -46,6 +54,7 @@ export const writePost = async ({
   category,
   view_cnt,
   like_cnt,
+  dislike_cnt,
   user,
 }: {
   title: string;
@@ -54,6 +63,7 @@ export const writePost = async ({
   category: string;
   view_cnt: number;
   like_cnt: number;
+  dislike_cnt: number;
   user: any;
 }) => {
   const uid = uuidv4();
@@ -67,6 +77,7 @@ export const writePost = async ({
       category,
       view_cnt,
       like_cnt,
+      dislike_cnt,
       publishedDate,
       user: {
         username: user.email,
@@ -84,6 +95,7 @@ export const writePost = async ({
     category,
     view_cnt,
     like_cnt,
+    dislike_cnt,
     user: {
       username: users[0].username,
       _id: users[0]._id,
@@ -178,10 +190,30 @@ export const addViewCnt = async ({
   uid: string;
   view_cnt: number;
 }) => {
-  const updates: any = {};
-  updates[`/posts/` + uid + '/view_cnt'] = view_cnt + 1;
-  update(ref(database), updates);
   try {
+    const updates: any = {};
+    updates[`/posts/` + uid + '/view_cnt'] = view_cnt + 1;
+    update(ref(database), updates);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const addCnt = async ({ postId, form, cnt }: any) => {
+  try {
+    const updates: any = {};
+    updates[`/posts/` + postId + `/${form}`] = cnt + 1;
+    update(ref(database), updates);
+    const dbRef = ref(database);
+    try {
+      const response = await get(child(dbRef, `posts/${postId}`));
+      if (response.exists()) {
+        return response.val();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return;
   } catch (e) {
     console.error(e);
   }

@@ -15,6 +15,7 @@ const WriteActionButtonContainer = () => {
     category,
     view_cnt,
     like_cnt,
+    dislike_cnt,
     post,
     postError,
     originalPostId,
@@ -27,6 +28,7 @@ const WriteActionButtonContainer = () => {
       category: write.category,
       view_cnt: write.view_cnt,
       like_cnt: write.like_cnt,
+      dislike_cnt: write.dislike_cnt,
       post: write.post,
       postError: write.postError,
       originalPostId: write.originalPostId,
@@ -43,6 +45,7 @@ const WriteActionButtonContainer = () => {
           tags,
           category,
           like_cnt,
+          dislike_cnt,
           view_cnt,
           id: originalPostId,
         })
@@ -50,7 +53,16 @@ const WriteActionButtonContainer = () => {
       return;
     }
     dispatch(
-      WRITE_POST({ title, body, tags, category, view_cnt, like_cnt, user })
+      WRITE_POST({
+        title,
+        body,
+        tags,
+        category,
+        view_cnt,
+        like_cnt,
+        dislike_cnt,
+        user,
+      })
     );
   };
 

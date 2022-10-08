@@ -11,6 +11,7 @@ export interface WriteState {
   category: string;
   view_cnt: number;
   like_cnt: number;
+  dislike_cnt: number;
   post: {
     title: string;
     body: string;
@@ -31,6 +32,7 @@ const initialState: WriteState = {
   category: 'all',
   view_cnt: 0,
   like_cnt: 0,
+  dislike_cnt: 0,
   post: null,
   postError: null,
   originalPostId: null,
