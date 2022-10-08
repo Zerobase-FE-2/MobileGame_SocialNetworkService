@@ -1,10 +1,12 @@
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from './app';
 
 export const login = ({ username, password }: any) => {
+  console.log('hihi');
   try {
     const user = signInWithEmailAndPassword(auth, username, password);
     return user;
@@ -29,6 +31,14 @@ export const register = async ({ username, password }: any) => {
 };
 
 export const check = () => {
+  console.log('check');
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+    } else {
+      console.log('no user');
+    }
+  });
   console.log('check');
 };
 

@@ -6,7 +6,7 @@ import * as authAPI from '../firebase/auth';
 
 const registerSaga = createRequestSaga('auth/REGISTER', authAPI.register);
 
-const loginSaga = createRequestSaga('auth/LOGIN', authAPI.login);
+export const loginSaga = createRequestSaga('auth/LOGIN', authAPI.login);
 
 export function* authSaga() {
   yield takeLatest('auth/REGISTER', registerSaga);

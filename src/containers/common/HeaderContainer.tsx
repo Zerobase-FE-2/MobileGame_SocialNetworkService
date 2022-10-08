@@ -7,6 +7,7 @@ const HeaderContainer = () => {
   const dispatch = useAppDispatch();
   const onLogOut = () => {
     console.log('logout');
+    localStorage.removeItem('user');
     dispatch(LOGOUT());
   };
   return <Header user={user} onLogOut={onLogOut} />;

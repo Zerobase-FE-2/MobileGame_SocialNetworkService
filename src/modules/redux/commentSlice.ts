@@ -32,7 +32,7 @@ const commentSlice = createSlice({
       produce(state, (draft) => {
         draft[key] = value;
       }),
-    INITIALIZE_FORM: () => initialState,
+    INITIALIZE_FORM: (state) => initialState,
     WRITE_COMMENT: (state, { payload: comment }) => ({
       ...state,
       comment: null,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommentActionButtons from '../../components/comment/CommentActionButtons';
 import CommentForm from '../../components/comment/CommentForm';
@@ -12,6 +12,7 @@ import { LIST_COMMENTS } from '../../modules/redux/commentsSlice';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
 
 const CommentsContainer = () => {
+  const [modal, setModal] = useState(false);
   const { postId } = useParams();
   const navigate = useNavigate();
 
@@ -42,10 +43,12 @@ const CommentsContainer = () => {
     console.log('submit');
     const { text } = form;
     if (!user) {
-      alert('로그인을 하세요');
+      setModal(true);
+      return;
     }
     dispatch(WRITE_COMMENT({ text, user, postId }));
-    dispatch(INITIALIZE_FORM());
+    dispatch(INITIALIZE_FORM({ text }));
+    navigate(0);
   };
 
   const onEdit = () => {
@@ -56,6 +59,14 @@ const CommentsContainer = () => {
     console.log('remove');
   };
 
+  const onCancel = () => {
+    setModal(false);
+  };
+
+  const onLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <>
       <CommentForm form={form} onChange={onChange} onSubmit={onSubmit} />
@@ -64,6 +75,9 @@ const CommentsContainer = () => {
         user={user}
         error={error}
         loading={loading}
+        visible={modal}
+        onCancel={onCancel}
+        onLogin={onLogin}
         actionButtons={
           <CommentActionButtons onEdit={onEdit} onRemove={onRemove} />
         }
