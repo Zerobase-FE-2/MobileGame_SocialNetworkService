@@ -121,10 +121,12 @@ const MainBoard = ({ products, loading }: any) => {
                 </figure>
                 <ProductDesc>
                   <h2>
-                    <Link to={`/${product.id}`}>{product.title}</Link>
+                    <Link to={`/category/${product.id}`}>{product.title}</Link>
                   </h2>
                   <p>
-                    <Link to={`/${product.id}`}>{product.description}</Link>
+                    <Link to={`/category/${product.id}`}>
+                      {product.description}
+                    </Link>
                   </p>
                 </ProductDesc>
               </Product>

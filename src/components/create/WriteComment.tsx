@@ -1,5 +1,8 @@
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../modules/redux/hook';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { CREATE_COMMENT } from '../../modules/redux/commentSlice';
 import Button from '../common/Button';
 
 const CommentDiv = styled.div`
@@ -12,7 +15,7 @@ const CommentDiv = styled.div`
     margin: 0 auto;
   }
   textarea {
-    resize: none;
+    resize: vertical;
     border: none;
   }
   button {
@@ -23,12 +26,30 @@ const CommentDiv = styled.div`
 `;
 
 const WriteComment = () => {
+  const param = useParams();
+  const dispatch = useAppDispatch();
   return (
     <CommentDiv>
       <h2>Comments</h2>
-      <form action="">
-        <textarea name="comment" id="comment" cols={110} rows={5} />
-        <Button>등록</Button>
+      <form>
+        <textarea cols={110} rows={5} />
+        <Button
+          onClick={(event: any) => {
+            event.preventDefault();
+            dispatch(
+              CREATE_COMMENT({
+                contents: {
+                  comment: event.target.form[0].value,
+                  commenter: null,
+                },
+                group: param.id,
+                id: null,
+              })
+            );
+          }}
+        >
+          등록
+        </Button>
       </form>
     </CommentDiv>
   );

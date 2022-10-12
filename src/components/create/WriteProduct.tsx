@@ -30,7 +30,7 @@ const WriteProductSection = styled.section`
     background-color: ${palette.blue[1]};
   }
   textarea {
-    resize: none;
+    resize: vertical;
   }
 `;
 const BtnDiv = styled.div`
