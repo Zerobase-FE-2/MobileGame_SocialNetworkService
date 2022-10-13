@@ -1,10 +1,9 @@
-import { uuidv4 } from '@firebase/util';
 import {
   doc,
   getDoc,
-  collection,
   updateDoc,
   arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 import { comment } from '../redux/commentSlice';
 import { firestore } from './app';
@@ -19,6 +18,22 @@ export const readProduct = async () => {
     }
   } catch (e) {
     console.error(e);
+  }
+};
+
+export const removeProduct = async ({ id }: any) => {
+  const dbRef = doc(firestore, 'bucket', 'mobileGames');
+  try {
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().gameList;
+      let post = posts.find((item: any) => item.id == id);
+      await updateDoc(dbRef, {
+        gameList: arrayRemove(post),
+      });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -44,13 +59,4 @@ export const createComment = async ({
   } catch (error) {
     console.error(error);
   }
-  // return {
-  //   contents: {
-  //     comment: contents.comment,
-  //     commneter: contents.commenter,
-  //   },
-  //   date: date,
-  //   group: group,
-  //   id: id,
-  // };
 };

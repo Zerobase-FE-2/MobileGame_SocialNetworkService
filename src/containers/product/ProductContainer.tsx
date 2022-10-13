@@ -5,6 +5,7 @@ import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
 import ProductDesc from '../../components/product/ProductDesc';
 import WriteComment from '../../components/create/WriteComment';
 import Comments from '../../components/product/Comments';
+import Buttons from '../../components/product/Buttons';
 
 const ProductContainer = () => {
   let params = useParams();
@@ -25,6 +26,7 @@ const ProductContainer = () => {
       {!loading && products && (
         <>
           <ProductDesc params={params} products={products} />
+          <Buttons params={params} />
           <WriteComment />
           <Comments />
         </>

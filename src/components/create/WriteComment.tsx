@@ -35,7 +35,6 @@ const WriteComment = () => {
         <textarea cols={110} rows={5} />
         <Button
           onClick={(event: any) => {
-            event.preventDefault();
             dispatch(
               CREATE_COMMENT({
                 contents: {
