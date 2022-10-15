@@ -37,6 +37,19 @@ export const removeProduct = async ({ id }: any) => {
   }
 };
 
+export const readComment = async () => {
+  const dbRef = doc(firestore, 'bucket', 'gameComments');
+  try {
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().comments;
+      return posts;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const createComment = async ({
   contents,
   group,
@@ -49,13 +62,29 @@ export const createComment = async ({
       comments: arrayUnion({
         contents: {
           comment: contents.comment,
-          commneter: contents.commenter,
+          commenter: contents.commenter,
         },
         date: date,
         group: group,
         id: id,
       }),
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const removeComment = async ({ item }: any) => {
+  const dbRef = doc(firestore, 'bucket', 'gameComments');
+  try {
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().comments;
+      let post = posts.find((comment: any) => comment == item);
+      await updateDoc(dbRef, {
+        comments: arrayRemove(post),
+      });
+    }
   } catch (error) {
     console.error(error);
   }

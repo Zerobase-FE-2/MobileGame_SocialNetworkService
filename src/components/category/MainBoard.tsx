@@ -88,12 +88,13 @@ const MainBoard = ({ products, loading }: any) => {
   useEffect(() => {
     filterProducts(setCategory, url);
   }, [location]);
+  if (loading || !products) {
+    return <h1>loading...</h1>;
+  }
   return (
     <ProductTable>
       {category === null
-        ? !loading &&
-          products &&
-          products.map((product: any) => (
+        ? products.map((product: any) => (
             <Product key={product.id}>
               <figure>
                 <img src={product.image} alt={product.title} />
@@ -110,9 +111,7 @@ const MainBoard = ({ products, loading }: any) => {
               </ProductDesc>
             </Product>
           ))
-        : !loading &&
-          products &&
-          products
+        : products
             .filter((product: any) => product.category === category)
             .map((product: any) => (
               <Product key={product.id}>

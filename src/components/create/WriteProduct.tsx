@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
@@ -25,7 +26,7 @@ const WriteProductSection = styled.section`
     border: none;
     background-color: ${palette.blue[1]};
   }
-  #desc {
+  #description {
     border: none;
     background-color: ${palette.blue[1]};
   }
@@ -42,19 +43,68 @@ const BtnDiv = styled.div`
 `;
 
 const WriteProduct = () => {
+  const [info, setInfo] = useState({
+    category: '',
+    company: '',
+    description: '',
+    id: 0,
+    image: '',
+    rating: {
+      score: 0.0,
+      visit: 0,
+    },
+    screenshot: [],
+    title: '',
+  });
+  const screenshotRef = useRef();
+  const {
+    category,
+    company,
+    description,
+    id,
+    image,
+    rating,
+    screenshot,
+    title,
+  } = info;
+
+  const onChange = (event: any) => {
+    const { name, value }: { name: any; value: any } = event.target;
+    setInfo({
+      ...info,
+      [name]: value,
+    });
+  };
   return (
     <WriteProductSection>
       <div>
         <label htmlFor="title">제목</label>
-        <input type="text" name="title" id="title" />
+        <input
+          type="text"
+          name="title"
+          id="title"
+          onChange={onChange}
+          value={title}
+        />
       </div>
       <div>
         <label htmlFor="company">회사</label>
-        <input type="text" name="company" id="company" />
+        <input
+          type="text"
+          name="company"
+          id="company"
+          onChange={onChange}
+          value={company}
+        />
       </div>
       <div>
         <label htmlFor="category">장르</label>
-        <select name="category" id="category">
+        <select
+          name="category"
+          id="category"
+          onChange={onChange}
+          value={category}
+        >
           <option value="">장르를 선택해주세요.</option>
           <option value="액션">액션</option>
           <option value="롤플레잉">롤플레잉</option>
@@ -67,22 +117,26 @@ const WriteProduct = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="desc">설명</label>
+        <label htmlFor="description">설명</label>
         <textarea
-          name="desc"
-          id="desc"
+          name="description"
+          id="description"
           cols={120}
           rows={10}
           placeholder="게임 설명을 추가해주세요."
+          onChange={onChange}
+          value={description}
         />
       </div>
       <div>
-        <label htmlFor="uploadImg">이미지 첨부</label>
+        <label htmlFor="uploadImg">스크린샷 첨부</label>
         <input
           type="file"
           name="uploadImg"
           id="uploadImg"
           accept="image/png, image/jpeg"
+          ref={screenshotRef.current}
+          multiple
         />
       </div>
       <BtnDiv>

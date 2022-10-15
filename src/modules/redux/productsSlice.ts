@@ -31,7 +31,7 @@ const readProductSaga = createRequestSaga(
   readProduct
 );
 const removeProductSaga = createRequestSaga(
-  'product/REMOVE_PRODUCTS',
+  'products/REMOVE_PRODUCTS',
   removeProduct
 );
 
@@ -64,9 +64,9 @@ const productsSlice = createSlice({
       ...state,
       data: id,
     }),
-    REMOVE_PRODUCTS_FAILURE: (state, { payload: id }) => ({
+    REMOVE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: id,
+      error: error,
     }),
   },
 });
