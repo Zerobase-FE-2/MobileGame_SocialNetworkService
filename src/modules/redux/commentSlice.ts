@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
-import { createComment, readComment, removeComment } from '../firebase/read';
+import {
+  createComment,
+  readComment,
+  removeComment,
+  updateComment,
+} from '../firebase/read';
 
 export interface comment {
   contents: {
@@ -22,9 +27,11 @@ const createCommentSaga = createRequestSaga(
   'comment/CREATE_COMMENT',
   createComment
 );
-
 const readCommentSaga = createRequestSaga('comment/READ_COMMENT', readComment);
-
+const updateCommentSaga = createRequestSaga(
+  'comment/UPDATE_COMMENT',
+  updateComment
+);
 const removeCommentSaga = createRequestSaga(
   'comment/REMOVE_COMMENT',
   removeComment
@@ -33,6 +40,7 @@ const removeCommentSaga = createRequestSaga(
 export function* createSaga() {
   yield takeLatest('comment/CREATE_COMMENT', createCommentSaga);
   yield takeLatest('comment/READ_COMMENT', readCommentSaga);
+  yield takeLatest('comment/UPDATE_COMMENT', updateCommentSaga);
   yield takeLatest('comment/REMOVE_COMMENT', removeCommentSaga);
 }
 
@@ -64,6 +72,20 @@ const commentSlice = createSlice({
       ...state,
       error: error,
     }),
+    UPDATE_COMMENT: (state, { payload: { comment, desc } }) => ({
+      ...state,
+      data: null,
+      error: null,
+    }),
+    UPDATE_COMMENT_SUCCESS: (state, { payload: { comment, desc } }) => ({
+      ...state,
+      data: comment,
+      desc,
+    }),
+    UPDATE_COMMENT_FAILURE: (state, { payload: error }) => ({
+      ...state,
+      error: error,
+    }),
     REMOVE_COMMENT: (state, { payload: item }) => ({
       ...state,
       data: null,
@@ -87,6 +109,9 @@ export const {
   READ_COMMENT,
   READ_COMMENT_SUCCESS,
   READ_COMMENT_FAILURE,
+  UPDATE_COMMENT,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAILURE,
   REMOVE_COMMENT,
   REMOVE_COMMENT_SUCCESS,
   REMOVE_COMMENT_FAILURE,

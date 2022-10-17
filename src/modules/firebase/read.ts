@@ -74,13 +74,40 @@ export const createComment = async ({
   }
 };
 
+export const updateComment = async ({ comment, desc }: any) => {
+  const dbRef = doc(firestore, 'bucket', 'gameComments');
+  try {
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().comments;
+      let post = posts.find((item: any) => item.id === comment.id);
+      await updateDoc(dbRef, {
+        comments: arrayRemove(post),
+      });
+    }
+    await updateDoc(dbRef, {
+      comments: arrayUnion({
+        contents: {
+          comment: desc,
+          commenter: comment.contents.commenter,
+        },
+        date: comment.date,
+        group: comment.group,
+        id: comment.id,
+      }),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const removeComment = async ({ item }: any) => {
   const dbRef = doc(firestore, 'bucket', 'gameComments');
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().comments;
-      let post = posts.find((comment: any) => comment == item);
+      let post = posts.find((comment: any) => comment.id == item);
       await updateDoc(dbRef, {
         comments: arrayRemove(post),
       });

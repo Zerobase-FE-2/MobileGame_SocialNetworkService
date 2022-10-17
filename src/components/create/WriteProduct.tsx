@@ -56,7 +56,7 @@ const WriteProduct = () => {
     screenshot: [],
     title: '',
   });
-  const screenshotRef = useRef();
+  const screenshotRef = useRef(null);
   const {
     category,
     company,
@@ -135,7 +135,7 @@ const WriteProduct = () => {
           name="uploadImg"
           id="uploadImg"
           accept="image/png, image/jpeg"
-          ref={screenshotRef.current}
+          ref={screenshotRef}
           multiple
         />
       </div>

@@ -1,6 +1,10 @@
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { REMOVE_COMMENT } from '../../modules/redux/commentSlice';
+import {
+  REMOVE_COMMENT,
+  UPDATE_COMMENT,
+} from '../../modules/redux/commentSlice';
 import { useAppDispatch } from '../../modules/redux/hook';
 import Button from '../common/Button';
 
@@ -17,12 +21,20 @@ const CommentList = styled.ul`
     background: ${palette.blue[0]};
     padding: 1rem;
   }
+  input {
+    width: 768px;
+    height: 1.5rem;
+    margin: 1rem 0;
+    border: none;
+  }
   div button {
     margin-left: 1rem;
   }
 `;
 
 const Comments = ({ params, comment }: any) => {
+  const [commentInfo, setCommentInfo] = useState('');
+  const [input, setInput] = useState('수정');
   const dispatch = useAppDispatch();
   const content = comment.filter((item: any) => item.group == params.id);
   if (content.length === 0) {
@@ -32,12 +44,38 @@ const Comments = ({ params, comment }: any) => {
     <CommentList>
       {content.map((item: any) => (
         <li key={item.date}>
-          <p>{item.contents.comment}</p>
+          {input === '수정' ? (
+            <p>{item.contents.comment}</p>
+          ) : (
+            <input
+              type="text"
+              name="commentText"
+              id="commentText"
+              onChange={(event: any) => {
+                setCommentInfo(event.target.value);
+              }}
+              defaultValue={commentInfo}
+            />
+          )}
           <div>
-            <Button>수정</Button>
             <Button
               onClick={() => {
-                dispatch(REMOVE_COMMENT({ item: item }));
+                setCommentInfo(item.contents.comment);
+                if (input === '수정') {
+                  setInput('등록');
+                } else {
+                  dispatch(
+                    UPDATE_COMMENT({ comment: item, desc: commentInfo })
+                  );
+                  setInput('수정');
+                }
+              }}
+            >
+              {input}
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch(REMOVE_COMMENT({ item: item.id }));
               }}
             >
               삭제

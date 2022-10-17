@@ -25,15 +25,17 @@ const CommentDiv = styled.div`
   }
 `;
 
-const WriteComment = () => {
+const WriteComment = ({ comment }: any) => {
   const param = useParams();
   const dispatch = useAppDispatch();
+  let count = comment.length;
   return (
     <CommentDiv>
       <h2>Comments</h2>
       <form>
         <textarea cols={110} rows={5} />
         <Button
+          type="submit"
           onClick={(event: any) => {
             dispatch(
               CREATE_COMMENT({
@@ -42,7 +44,7 @@ const WriteComment = () => {
                   commenter: null,
                 },
                 group: param.id,
-                id: null,
+                id: count,
               })
             );
           }}
