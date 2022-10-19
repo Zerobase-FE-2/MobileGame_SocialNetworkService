@@ -3,10 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
 import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
 import ProductDesc from '../../components/product/ProductDesc';
-import WriteComment from '../../components/create/WriteComment';
-import Comments from '../../components/product/Comments';
 import Buttons from '../../components/product/Buttons';
-import { READ_COMMENT } from '../../modules/redux/commentSlice';
 
 const ProductContainer = () => {
   let params = useParams();

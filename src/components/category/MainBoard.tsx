@@ -8,7 +8,7 @@ const ProductTable = styled.article`
   grid-column: 2;
   width: fit-content;
   height: fit-content;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   margin-top: 1rem;
   background-color: white;
   border-radius: 10px;
@@ -95,40 +95,32 @@ const MainBoard = ({ products, loading }: any) => {
     <ProductTable>
       {category === null
         ? products.map((product: any) => (
-            <Product key={product.id}>
-              <figure>
-                <img src={product.image} alt={product.title} />
-              </figure>
-              <ProductDesc>
-                <h2>
-                  <Link to={`/category/${product.id}`}>{product.title}</Link>
-                </h2>
-                <p>
-                  <Link to={`/category/${product.id}`}>
-                    {product.description}
-                  </Link>
-                </p>
-              </ProductDesc>
-            </Product>
-          ))
-        : products
-            .filter((product: any) => product.category === category)
-            .map((product: any) => (
-              <Product key={product.id}>
+            <Link to={`/category/${product.id}`} key={product.id}>
+              <Product>
                 <figure>
                   <img src={product.image} alt={product.title} />
                 </figure>
                 <ProductDesc>
-                  <h2>
-                    <Link to={`/category/${product.id}`}>{product.title}</Link>
-                  </h2>
-                  <p>
-                    <Link to={`/category/${product.id}`}>
-                      {product.description}
-                    </Link>
-                  </p>
+                  <h2>{product.title}</h2>
+                  <p>{product.description}</p>
                 </ProductDesc>
               </Product>
+            </Link>
+          ))
+        : products
+            .filter((product: any) => product.category === category)
+            .map((product: any) => (
+              <Link to={`/category/${product.id}`} key={product.id}>
+                <Product>
+                  <figure>
+                    <img src={product.image} alt={product.title} />
+                  </figure>
+                  <ProductDesc>
+                    <h2>{product.title}</h2>
+                    <p>{product.description}</p>
+                  </ProductDesc>
+                </Product>
+              </Link>
             ))}
     </ProductTable>
   );

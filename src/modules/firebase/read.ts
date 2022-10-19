@@ -16,8 +16,8 @@ export const readProduct = async () => {
       let posts = response.data().gameList;
       return posts;
     }
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 };
 
