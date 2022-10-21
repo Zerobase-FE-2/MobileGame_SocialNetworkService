@@ -22,21 +22,21 @@ const LikeDisLikeContainer = () => {
   const handleLikeAdd = () => {
     if (loading) return;
     const cnt = post.like_cnt;
-    dispatch(ADD_CNT({ postId, form: 'like_cnt', cnt }));
+    dispatch(ADD_CNT({ postId, form: 'likeCnt', cnt }));
   };
   const handleDislikeAdd = () => {
     if (loading) return;
     const cnt = post.dislike_cnt;
-    dispatch(ADD_CNT({ postId, form: 'dislike_cnt', cnt }));
+    dispatch(ADD_CNT({ postId, form: 'dislikeCnt', cnt }));
   };
 
   return (
     <>
       {!loading && post && (
         <Wrapper>
-          <LikeButton like_cnt={post.like_cnt} onAdd={handleLikeAdd} />
+          <LikeButton like_cnt={post.likeCnt} onAdd={handleLikeAdd} />
           <DisLikeButton
-            dislike_cnt={post.dislike_cnt}
+            dislike_cnt={post.dislikeCnt}
             onAdd={handleDislikeAdd}
           />
         </Wrapper>

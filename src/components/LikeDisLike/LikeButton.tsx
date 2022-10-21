@@ -17,11 +17,11 @@ const Like = styled.img`
   height: 2rem;
 `;
 
-const LikeButton = ({ like_cnt, onAdd }: any) => {
+const LikeButton = ({ likeCnt, onAdd }: any) => {
   return (
     <LikeBtn onClick={onAdd}>
       <Like src={LikeImg} alt="like" />
-      {like_cnt}
+      {likeCnt}
     </LikeBtn>
   );
 };

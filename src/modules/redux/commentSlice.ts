@@ -40,7 +40,7 @@ const commentSlice = createSlice({
     }),
     WRITE_COMMENT_SUCCESS: (state, { payload: comment }) => ({
       ...state,
-      comment,
+      comments: { _id: 'fuck', ...state.comments },
     }),
     WRITE_COMMENT_FAILED: (state, { payload: commentError }) => ({
       ...state,

@@ -16,8 +16,9 @@ export const writeComment = async ({ text, user, postId }: any) => {
     });
   } catch (e) {
     console.error(e);
+  } finally {
+    return { _id: uid, postId, publishedDate, text };
   }
-  console.log('write');
 };
 
 export const readComments = () => {

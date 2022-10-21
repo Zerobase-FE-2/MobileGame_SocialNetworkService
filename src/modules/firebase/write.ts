@@ -52,18 +52,18 @@ export const writePost = async ({
   body,
   tags,
   category,
-  view_cnt,
-  like_cnt,
-  dislike_cnt,
+  viewCnt,
+  likeCnt,
+  dislikeCnt,
   user,
 }: {
   title: string;
   body: string;
   tags: string[];
   category: string;
-  view_cnt: number;
-  like_cnt: number;
-  dislike_cnt: number;
+  viewCnt: number;
+  likeCnt: number;
+  dislikeCnt: number;
   user: any;
 }) => {
   const uid = uuidv4();
@@ -75,9 +75,9 @@ export const writePost = async ({
       body,
       tags,
       category,
-      view_cnt,
-      like_cnt,
-      dislike_cnt,
+      viewCnt,
+      likeCnt,
+      dislikeCnt,
       publishedDate,
       user: {
         username: user.email,
@@ -93,9 +93,9 @@ export const writePost = async ({
     body,
     tags,
     category,
-    view_cnt,
-    like_cnt,
-    dislike_cnt,
+    viewCnt,
+    likeCnt,
+    dislikeCnt,
     user: {
       username: users[0].username,
       _id: users[0]._id,
@@ -113,8 +113,8 @@ export const readPost = async (id: string) => {
     const response = await get(child(dbRef, `posts/${id}`));
 
     if (response.exists()) {
-      let { _id: uid, view_cnt } = response.val();
-      addViewCnt({ uid, view_cnt });
+      let { _id: uid, viewCnt } = response.val();
+      addViewCnt({ uid, viewCnt });
       return response.val();
     }
   } catch (e) {
@@ -185,14 +185,14 @@ export const removePost = async (id: any) => {
 
 export const addViewCnt = async ({
   uid,
-  view_cnt,
+  viewCnt,
 }: {
   uid: string;
-  view_cnt: number;
+  viewCnt: number;
 }) => {
   try {
     const updates: any = {};
-    updates[`/posts/` + uid + '/view_cnt'] = view_cnt + 1;
+    updates[`/posts/` + uid + '/viewCnt'] = viewCnt + 1;
     update(ref(database), updates);
   } catch (e) {
     console.error(e);

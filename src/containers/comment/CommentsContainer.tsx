@@ -48,7 +48,6 @@ const CommentsContainer = () => {
     }
     dispatch(WRITE_COMMENT({ text, user, postId }));
     dispatch(INITIALIZE_FORM({ text }));
-    navigate(0);
   };
 
   const onEdit = () => {
