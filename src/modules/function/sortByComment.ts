@@ -1,4 +1,4 @@
-const sortByComment = (products: any[], comments: any[]) => {
+const sortByComment = (products: any[], comments: any[]): any => {
   const result = comments.reduce((acc: any, cur: any) => {
     acc[cur.group] = (acc[cur.group] || 0) + 1;
     return acc;

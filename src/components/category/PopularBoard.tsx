@@ -14,7 +14,7 @@ const PopularList = styled.div`
   }
 `;
 
-const PopularBoard = () => {
+const PopularBoard = ({ products }: any) => {
   return (
     <PopularList>
       <h2>인기 게임</h2>

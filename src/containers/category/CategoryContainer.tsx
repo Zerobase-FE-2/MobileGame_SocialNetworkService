@@ -57,7 +57,7 @@ const CategoryContainer = () => {
         <CategorySection>
           <div>
             <Category categories={categories} />
-            <PopularBoard />
+            <PopularBoard products={products} />
           </div>
           <MainBoard products={products} loading={loading} />
           <button>

@@ -34,17 +34,21 @@ const CommentList = styled.ul`
 
 const Comments = ({ params, comment }: any) => {
   const [commentInfo, setCommentInfo] = useState('');
-  const [input, setInput] = useState('수정');
+  const [input, setInput] = useState(null);
+  const [chosen, setChosen] = useState(null);
   const dispatch = useAppDispatch();
   const content = comment.filter((item: any) => item.group == params.id);
+  useEffect(() => {
+    console.log(chosen);
+  }, [chosen]);
   if (content.length === 0) {
     return <></>;
   }
   return (
     <CommentList>
       {content.map((item: any) => (
-        <li key={item.date}>
-          {input === '수정' ? (
+        <li key={item.id}>
+          {chosen !== item ? (
             <p>{item.contents.comment}</p>
           ) : (
             <input
@@ -59,19 +63,18 @@ const Comments = ({ params, comment }: any) => {
           )}
           <div>
             <Button
-              onClick={() => {
+              onClick={(event: any) => {
+                setChosen(item);
                 setCommentInfo(item.contents.comment);
-                if (input === '수정') {
-                  setInput('등록');
-                } else {
+                if (event.target.innerHTML === '등록') {
                   dispatch(
                     UPDATE_COMMENT({ comment: item, desc: commentInfo })
                   );
-                  setInput('수정');
+                  setChosen(null);
                 }
               }}
             >
-              {input}
+              {item !== chosen ? '수정' : '등록'}
             </Button>
             <Button
               onClick={() => {

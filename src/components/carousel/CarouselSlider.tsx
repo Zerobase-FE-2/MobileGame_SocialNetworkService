@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { product } from '../../modules/redux/productsSlice';
 
-const Image = styled.img`
+const Image = styled.div`
   width: 1024px;
   height: 18rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   @media (max-width: 1024px) {
     width: 100vw;
@@ -29,7 +32,9 @@ const CarouselSlider = ({ products, loading }: any) => {
     <>
       {!loading && (
         <Link to={`/category/${products[img].id}`}>
-          <Image src={products[img].screenshot[0]} alt={products[img].title} />
+          <Image
+            style={{ backgroundImage: `url(${products[img].screenshot[0]})` }}
+          />
         </Link>
       )}
     </>
