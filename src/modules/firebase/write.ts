@@ -201,6 +201,7 @@ export const addViewCnt = async ({
 
 export const addCnt = async ({ postId, form, cnt }: any) => {
   try {
+    console.log(postId, form, cnt);
     const updates: any = {};
     updates[`/posts/` + postId + `/${form}`] = cnt + 1;
     update(ref(database), updates);
@@ -208,12 +209,14 @@ export const addCnt = async ({ postId, form, cnt }: any) => {
     try {
       const response = await get(child(dbRef, `posts/${postId}`));
       if (response.exists()) {
+        console.log('add', response.val());
         return response.val();
       }
     } catch (e) {
       console.error(e);
+    } finally {
+      console.log('Fuck');
     }
-    return;
   } catch (e) {
     console.error(e);
   }

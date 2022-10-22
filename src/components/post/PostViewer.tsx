@@ -61,7 +61,7 @@ const PostViewer = ({
     return null;
   }
 
-  const { category, title, user, body, publishedDate, tags, view_cnt } = post;
+  const { category, title, user, body, publishedDate, tags, viewCnt } = post;
 
   return (
     <PostViewerBlock>
@@ -70,7 +70,7 @@ const PostViewer = ({
       </Helmet>
       {actionButtons}
       <PostHead>
-        <ViewSpan>조회수 {view_cnt}</ViewSpan>
+        <ViewSpan>조회수 {viewCnt}</ViewSpan>
         <h1>{title}</h1>
         <SubInfo
           category={category}

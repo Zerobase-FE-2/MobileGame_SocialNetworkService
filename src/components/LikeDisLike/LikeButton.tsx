@@ -18,6 +18,7 @@ const Like = styled.img`
 `;
 
 const LikeButton = ({ likeCnt, onAdd }: any) => {
+  console.log(likeCnt);
   return (
     <LikeBtn onClick={onAdd}>
       <Like src={LikeImg} alt="like" />
