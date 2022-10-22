@@ -17,7 +17,13 @@ export const writeComment = async ({ text, user, postId }: any) => {
   } catch (e) {
     console.error(e);
   } finally {
-    return { _id: uid, postId, publishedDate, text };
+    return {
+      _id: uid,
+      postId,
+      publishedDate,
+      text,
+      user: { _id: user.uid, username: user.email },
+    };
   }
 };
 

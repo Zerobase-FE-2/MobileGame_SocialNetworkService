@@ -7,8 +7,8 @@ import {
   CHANGE_FIELD,
   INITIALIZE_FORM,
   WRITE_COMMENT,
-} from '../../modules/redux/commentSlice';
-import { LIST_COMMENTS } from '../../modules/redux/commentsSlice';
+  LIST_COMMENTS,
+} from '../../modules/redux/commentsSlice';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
 
 const CommentsContainer = () => {
@@ -19,8 +19,8 @@ const CommentsContainer = () => {
   const dispatch = useAppDispatch();
 
   const { form, comments, error, loading, user } = useAppSelector(
-    ({ comment, user, comments, loading }: any) => ({
-      form: comment,
+    ({ user, comments, loading }: any) => ({
+      form: comments,
       comments: comments.comments,
       error: comments.error,
       loading: loading['comments/LIST_COMMENTS'],
@@ -47,7 +47,7 @@ const CommentsContainer = () => {
       return;
     }
     dispatch(WRITE_COMMENT({ text, user, postId }));
-    dispatch(INITIALIZE_FORM({ text }));
+    dispatch(INITIALIZE_FORM('text'));
   };
 
   const onEdit = () => {
