@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import {
   doc,
   getDoc,
@@ -16,6 +17,25 @@ export const readProduct = async () => {
       let posts = response.data().gameList;
       return posts;
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProduct = async ({ product }: any) => {
+  const dbRef = doc(firestore, 'bucket', 'mobileGames');
+  try {
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().gameList;
+      let post = posts.find((item: any) => item.id == product.id);
+      await updateDoc(dbRef, {
+        gameList: arrayRemove(post),
+      });
+    }
+    await updateDoc(dbRef, {
+      gameList: arrayUnion(product),
+    });
   } catch (error) {
     console.error(error);
   }

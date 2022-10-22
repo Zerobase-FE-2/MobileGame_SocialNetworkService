@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import {
@@ -34,13 +34,9 @@ const CommentList = styled.ul`
 
 const Comments = ({ params, comment }: any) => {
   const [commentInfo, setCommentInfo] = useState('');
-  const [input, setInput] = useState(null);
   const [chosen, setChosen] = useState(null);
   const dispatch = useAppDispatch();
   const content = comment.filter((item: any) => item.group == params.id);
-  useEffect(() => {
-    console.log(chosen);
-  }, [chosen]);
   if (content.length === 0) {
     return <></>;
   }

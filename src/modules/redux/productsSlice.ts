@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
-import { readProduct, removeProduct } from '../firebase/read';
+import { readProduct, removeProduct, updateProduct } from '../firebase/read';
 
 export interface product {
   category: string;
@@ -30,6 +30,10 @@ const readProductSaga = createRequestSaga(
   'products/READ_PRODUCTS',
   readProduct
 );
+const updateProductSaga = createRequestSaga(
+  'products/UPDATE_PRODUCTS',
+  updateProduct
+);
 const removeProductSaga = createRequestSaga(
   'products/REMOVE_PRODUCTS',
   removeProduct
@@ -37,6 +41,7 @@ const removeProductSaga = createRequestSaga(
 
 export function* readSaga() {
   yield takeLatest('products/READ_PRODUCTS', readProductSaga);
+  yield takeLatest('products/UPDATE_PRODUCTS', updateProductSaga);
   yield takeLatest('products/REMOVE_PRODUCTS', removeProductSaga);
 }
 
@@ -52,6 +57,17 @@ const productsSlice = createSlice({
       data: products,
     }),
     READ_PRODUCTS_FAILURE: (state, { payload: error }) => ({
+      ...state,
+      error: error,
+    }),
+    UPDATE_PRODUCTS: (state, { payload: product }) => ({
+      ...state,
+    }),
+    UPDATE_PRODUCTS_SUCCESS: (state, { payload: product }) => ({
+      ...state,
+      data: product,
+    }),
+    UPDATE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
       error: error,
     }),
@@ -75,6 +91,9 @@ export const {
   READ_PRODUCTS,
   READ_PRODUCTS_SUCCESS,
   READ_PRODUCTS_FAILURE,
+  UPDATE_PRODUCTS,
+  UPDATE_PRODUCTS_SUCCESS,
+  UPDATE_PRODUCTS_FAILURE,
   REMOVE_PRODUCTS,
   REMOVE_PRODUCTS_SUCCESS,
   REMOVE_PRODUCTS_FAILURE,

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -21,7 +20,6 @@ const CategorySelect = styled.select`
 
   border: 1px solid ${palette.gray[9]};
   border-radius: 4px;
-
   font-size: 18px;
 `;
 

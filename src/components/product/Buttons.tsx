@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import { REMOVE_PRODUCTS } from '../../modules/redux/productsSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ButtonDiv = styled.div`
   width: 1024px;
@@ -32,7 +32,9 @@ const Buttons = ({ params }: any) => {
       >
         삭제
       </Button>
-      <Button>수정</Button>
+      <Link to={`/update/${params.id}`}>
+        <Button>수정</Button>
+      </Link>
     </ButtonDiv>
   );
 };

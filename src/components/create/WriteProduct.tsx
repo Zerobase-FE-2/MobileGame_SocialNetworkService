@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { useAppDispatch } from '../../modules/redux/hook';
+import { UPDATE_PRODUCTS } from '../../modules/redux/productsSlice';
 import Button from '../common/Button';
 
 const WriteProductSection = styled.section`
@@ -42,21 +46,13 @@ const BtnDiv = styled.div`
   }
 `;
 
-const WriteProduct = () => {
-  const [info, setInfo] = useState({
-    category: '',
-    company: '',
-    description: '',
-    id: 0,
-    image: '',
-    rating: {
-      score: 0.0,
-      visit: 0,
-    },
-    screenshot: [],
-    title: '',
-  });
+const WriteProduct = ({ products }: any) => {
+  const params = useParams();
+  const product = products.find((item: any) => item.id == params.id);
+  const navigate = useNavigate();
+  const [info, setInfo] = useState(product);
   const screenshotRef = useRef(null);
+  const dispatch = useAppDispatch();
   const {
     category,
     company,
@@ -136,11 +132,18 @@ const WriteProduct = () => {
           id="uploadImg"
           accept="image/png, image/jpeg"
           ref={screenshotRef}
-          multiple
+          multiple={true}
         />
       </div>
       <BtnDiv>
-        <Button>등록하기</Button>
+        <Button
+          onClick={() => {
+            dispatch(UPDATE_PRODUCTS({ product: info }));
+            navigate(-1);
+          }}
+        >
+          등록하기
+        </Button>
         <Button>뒤로가기</Button>
       </BtnDiv>
     </WriteProductSection>

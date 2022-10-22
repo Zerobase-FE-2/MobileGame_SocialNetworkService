@@ -5,7 +5,6 @@ import FooterContainer from '../containers/common/FooterContainer';
 import { useEffect } from 'react';
 import { READ_PRODUCTS } from '../modules/redux/productsSlice';
 import { useAppSelector, useAppDispatch } from '../modules/redux/hook';
-import { READ_COMMENT } from '../modules/redux/commentSlice';
 const MainPage = () => {
   const { products, error, loading } = useAppSelector(
     ({ products, loading }: { products: any; loading: any }) => ({
