@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import { REMOVE_PRODUCTS } from '../../modules/redux/productsSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Params, useNavigate } from 'react-router-dom';
 
 const ButtonDiv = styled.div`
   width: 1024px;
@@ -18,8 +18,8 @@ const ButtonDiv = styled.div`
   }
 `;
 
-const Buttons = ({ params }: any) => {
-  const intParams = parseInt(params.id);
+const Buttons = ({ params }: { params: Readonly<Params<string>> }) => {
+  const intParams = parseInt(params.id!);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   return (

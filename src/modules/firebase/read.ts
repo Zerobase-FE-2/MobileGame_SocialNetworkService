@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import {
   doc,
   getDoc,
@@ -6,6 +5,7 @@ import {
   arrayUnion,
   arrayRemove,
 } from 'firebase/firestore';
+import { product } from '../redux/productsSlice';
 import { comment } from '../redux/commentSlice';
 import { firestore } from './app';
 
@@ -22,13 +22,13 @@ export const readProduct = async () => {
   }
 };
 
-export const updateProduct = async ({ product }: any) => {
+export const updateProduct = async ({ product }: { product: product }) => {
   const dbRef = doc(firestore, 'bucket', 'mobileGames');
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().gameList;
-      let post = posts.find((item: any) => item.id == product.id);
+      let post = posts.find((item: product) => item.id == product.id);
       await updateDoc(dbRef, {
         gameList: arrayRemove(post),
       });
@@ -41,13 +41,13 @@ export const updateProduct = async ({ product }: any) => {
   }
 };
 
-export const removeProduct = async ({ id }: any) => {
+export const removeProduct = async ({ id }: { id: number }) => {
   const dbRef = doc(firestore, 'bucket', 'mobileGames');
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().gameList;
-      let post = posts.find((item: any) => item.id == id);
+      let post = posts.find((item: product) => item.id == id);
       await updateDoc(dbRef, {
         gameList: arrayRemove(post),
       });
@@ -94,13 +94,19 @@ export const createComment = async ({
   }
 };
 
-export const updateComment = async ({ comment, desc }: any) => {
+export const updateComment = async ({
+  comment,
+  desc,
+}: {
+  comment: comment;
+  desc: string;
+}) => {
   const dbRef = doc(firestore, 'bucket', 'gameComments');
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().comments;
-      let post = posts.find((item: any) => item.id === comment.id);
+      let post = posts.find((item: comment) => item.id === comment.id);
       await updateDoc(dbRef, {
         comments: arrayRemove(post),
       });
@@ -121,13 +127,13 @@ export const updateComment = async ({ comment, desc }: any) => {
   }
 };
 
-export const removeComment = async ({ item }: any) => {
+export const removeComment = async ({ id }: { id: number }) => {
   const dbRef = doc(firestore, 'bucket', 'gameComments');
   try {
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().comments;
-      let post = posts.find((comment: any) => comment.id == item);
+      let post = posts.find((item: comment) => item.id == id);
       await updateDoc(dbRef, {
         comments: arrayRemove(post),
       });

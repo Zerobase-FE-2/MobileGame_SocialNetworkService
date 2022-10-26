@@ -11,14 +11,14 @@ import {
 export interface comment {
   contents: {
     comment: string;
-    commenter: object | string;
+    commenter: string | null;
   };
   date: number;
   group: string;
-  id: object | string;
+  id: number;
 }
 
-const initialState: any = {
+const initialState: {} = {
   data: null,
   error: null,
 };

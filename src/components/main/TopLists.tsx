@@ -5,6 +5,8 @@ import palette from '../../lib/styles/palette';
 import sortByComment from '../../modules/function/sortByComment';
 import sortByDate from '../../modules/function/sortByDate';
 import sortByScore from '../../modules/function/sortByRating';
+import { comment } from '../../modules/redux/commentSlice';
+import { product } from '../../modules/redux/productsSlice';
 import Button from '../common/Button';
 
 const TopList = styled.article`
@@ -61,8 +63,16 @@ const ItemTitle = styled.h2`
   margin: 0;
 `;
 
-const TopLists = ({ products, comment, loading }: any) => {
-  const [list, setList] = useState([]);
+const TopLists = ({
+  products,
+  comment,
+  loading,
+}: {
+  products: product[];
+  comment: comment[];
+  loading: boolean;
+}) => {
+  const [list, setList] = useState<product[]>([]);
   useEffect(() => {
     if (!loading && products && comment) {
       setList(sortByScore(products));
@@ -101,7 +111,7 @@ const TopLists = ({ products, comment, loading }: any) => {
         </TopNav>
       </TopMenu>
       <TopUl>
-        {list.map((item: any) => (
+        {list.map((item: product) => (
           <Link to={`/category/${item.id}`} key={item.id}>
             <ItemDiv>
               <img src={item.image} alt={item.title} />

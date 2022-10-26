@@ -2,8 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../modules/redux/hook';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { CREATE_COMMENT } from '../../modules/redux/commentSlice';
+import { comment, CREATE_COMMENT } from '../../modules/redux/commentSlice';
 import Button from '../common/Button';
+import React, { MouseEvent } from 'react';
 
 const CommentDiv = styled.div`
   width: 1024px;
@@ -25,7 +26,7 @@ const CommentDiv = styled.div`
   }
 `;
 
-const WriteComment = ({ comment }: any) => {
+const WriteComment = ({ comment }: { comment: comment[] }) => {
   const param = useParams();
   const dispatch = useAppDispatch();
   let count = comment.length;
@@ -36,11 +37,12 @@ const WriteComment = ({ comment }: any) => {
         <textarea cols={110} rows={5} />
         <Button
           type="submit"
-          onClick={(event: any) => {
+          // find event form
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             dispatch(
               CREATE_COMMENT({
                 contents: {
-                  comment: event.target.form[0].value,
+                  comment: (event.target as HTMLFormElement).form[0].value,
                   commenter: null,
                 },
                 group: param.id,

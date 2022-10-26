@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import sortByScore from '../../modules/function/sortByRating';
+import { product } from '../../modules/redux/productsSlice';
 
 const PopularList = styled.div`
   width: 130px;
@@ -23,12 +24,12 @@ const PopularList = styled.div`
   }
 `;
 
-const PopularBoard = ({ products }: any) => {
+const PopularBoard = ({ products }: { products: product[] }) => {
   const popularProducts = sortByScore(products);
   return (
     <PopularList>
       <span>인기 게임</span>
-      {popularProducts.map((item: any) => (
+      {popularProducts.map((item: product) => (
         <Link to={`/category/${item.id}`} key={item.id}>
           <img src={item.image} alt={item.title} />
         </Link>

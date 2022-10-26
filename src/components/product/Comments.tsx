@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import {
@@ -7,6 +7,8 @@ import {
 } from '../../modules/redux/commentSlice';
 import { useAppDispatch } from '../../modules/redux/hook';
 import Button from '../common/Button';
+import { comment } from '../../modules/redux/commentSlice';
+import { Params } from 'react-router-dom';
 
 const CommentList = styled.ul`
   width: 1024px;
@@ -32,18 +34,24 @@ const CommentList = styled.ul`
   }
 `;
 
-const Comments = ({ params, comment }: any) => {
+const Comments = ({
+  params,
+  comment,
+}: {
+  params: Readonly<Params<string>>;
+  comment: comment[];
+}) => {
   const [commentInfo, setCommentInfo] = useState('');
-  const [chosen, setChosen] = useState(null);
+  const [chosen, setChosen] = useState<comment | null>(null);
   const dispatch = useAppDispatch();
-  const content = comment.filter((item: any) => item.group == params.id);
+  const content = comment.filter((item: comment) => item.group == params.id);
   if (content.length === 0) {
     return <></>;
   }
   return (
     <CommentList>
-      {content.map((item: any) => (
-        <li key={item.id}>
+      {content.map((item: comment) => (
+        <li key={item.id.toString()}>
           {chosen !== item ? (
             <p>{item.contents.comment}</p>
           ) : (
@@ -51,7 +59,7 @@ const Comments = ({ params, comment }: any) => {
               type="text"
               name="commentText"
               id="commentText"
-              onChange={(event: any) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setCommentInfo(event.target.value);
               }}
               defaultValue={commentInfo}
@@ -59,10 +67,12 @@ const Comments = ({ params, comment }: any) => {
           )}
           <div>
             <Button
-              onClick={(event: any) => {
+              onClick={(
+                event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+              ) => {
                 setChosen(item);
                 setCommentInfo(item.contents.comment);
-                if (event.target.innerHTML === '등록') {
+                if ((event.target as HTMLElement).innerHTML === '등록') {
                   dispatch(
                     UPDATE_COMMENT({ comment: item, desc: commentInfo })
                   );
@@ -74,7 +84,7 @@ const Comments = ({ params, comment }: any) => {
             </Button>
             <Button
               onClick={() => {
-                dispatch(REMOVE_COMMENT({ item: item.id }));
+                dispatch(REMOVE_COMMENT({ id: item.id }));
               }}
             >
               삭제

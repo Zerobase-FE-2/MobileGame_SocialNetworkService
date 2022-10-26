@@ -5,7 +5,8 @@ import TopLists from '../../components/main/TopLists';
 import CommunityTopList from '../../components/main/CommunityTopList';
 import PopularList from '../../components/main/PopularList';
 import { useEffect } from 'react';
-import { READ_COMMENT } from '../../modules/redux/commentSlice';
+import { comment, READ_COMMENT } from '../../modules/redux/commentSlice';
+import { product } from '../../modules/redux/productsSlice';
 const MainSection = styled.section`
   width: 1024px;
   height: full;
@@ -21,7 +22,7 @@ const MainSection = styled.section`
     margin: 0 auto;
   }
 `;
-const MainPageContainer = ({ products }: any) => {
+const MainPageContainer = ({ products }: { products: product[] }) => {
   const { comment, error, loading } = useAppSelector(
     ({ comment, loading }: { comment: any; loading: any }) => ({
       comment: comment.data,
@@ -35,7 +36,7 @@ const MainPageContainer = ({ products }: any) => {
   }, [dispatch]);
   return (
     <MainSection>
-      <TopLists products={products} comment={comment} />
+      <TopLists products={products} comment={comment} loading={loading} />
       <CommunityTopList />
       <PopularList />
     </MainSection>

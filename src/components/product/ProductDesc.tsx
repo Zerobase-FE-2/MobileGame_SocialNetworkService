@@ -1,5 +1,7 @@
+import { Params } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { product } from '../../modules/redux/productsSlice';
 
 const Section = styled.section`
 display : flex;
@@ -45,8 +47,16 @@ const DescP = styled.p`
   margin-top: 0;
 `;
 
-const ProductDesc = ({ params, products }: any) => {
-  const product = products.find((item: any) => item.id == params.id);
+const ProductDesc = ({
+  params,
+  products,
+}: {
+  params: Readonly<Params<string>>;
+  products: product[];
+}) => {
+  const product: product = products.find(
+    (item: product) => item.id.toString() === params.id
+  )!;
   return (
     <Section id={params.id}>
       <img src={product.image} alt={product.title} />

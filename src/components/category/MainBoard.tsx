@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { product } from '../../modules/redux/productsSlice';
 
 const ProductTable = styled.article`
   grid-row: 1 / span 2;
@@ -49,7 +50,7 @@ const ProductDesc = styled.div`
     margin-top: 0;
   }
 `;
-const filterProducts = (setFunc: any, url: any) => {
+const filterProducts = (setFunc: Function, url: string | null) => {
   switch (url) {
     case 'action':
       setFunc('액션');
@@ -81,7 +82,13 @@ const filterProducts = (setFunc: any, url: any) => {
   }
 };
 
-const MainBoard = ({ products, loading }: any) => {
+const MainBoard = ({
+  products,
+  loading,
+}: {
+  products: product[];
+  loading: boolean;
+}) => {
   const location = useLocation();
   let url = new URLSearchParams(location.search).get('category');
   const [category, setCategory] = useState(null);
@@ -94,7 +101,7 @@ const MainBoard = ({ products, loading }: any) => {
   return (
     <ProductTable>
       {category === null
-        ? products.map((product: any) => (
+        ? products.map((product: product) => (
             <Link to={`/category/${product.id}`} key={product.id}>
               <Product>
                 <figure>
@@ -108,8 +115,8 @@ const MainBoard = ({ products, loading }: any) => {
             </Link>
           ))
         : products
-            .filter((product: any) => product.category === category)
-            .map((product: any) => (
+            .filter((product: product) => product.category === category)
+            .map((product: product) => (
               <Link to={`/category/${product.id}`} key={product.id}>
                 <Product>
                   <figure>

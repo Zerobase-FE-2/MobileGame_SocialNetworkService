@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { useAppDispatch } from '../../modules/redux/hook';
-import { UPDATE_PRODUCTS } from '../../modules/redux/productsSlice';
+import { product, UPDATE_PRODUCTS } from '../../modules/redux/productsSlice';
 import Button from '../common/Button';
 
 const WriteProductSection = styled.section`
@@ -45,12 +45,14 @@ const BtnDiv = styled.div`
     margin: 0 0.5rem;
   }
 `;
-
-const WriteProduct = ({ products }: any) => {
+// type issue
+const WriteProduct = ({ products }: { products: product[] }) => {
   const params = useParams();
-  const product = products.find((item: any) => item.id == params.id);
+  const product: product = products.find(
+    (item: product) => item.id.toString() === params.id
+  )!;
   const navigate = useNavigate();
-  const [info, setInfo] = useState(product);
+  const [info, setInfo] = useState<product>(product);
   const screenshotRef = useRef(null);
   const dispatch = useAppDispatch();
   const {
@@ -64,7 +66,11 @@ const WriteProduct = ({ products }: any) => {
     title,
   } = info;
 
-  const onChange = (event: any) => {
+  const onChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value }: { name: any; value: any } = event.target;
     setInfo({
       ...info,

@@ -21,7 +21,7 @@ export interface product {
   title: string;
 }
 
-const initialState: any = {
+const initialState: {} = {
   data: null,
   error: null,
 };

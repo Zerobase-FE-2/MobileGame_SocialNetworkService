@@ -3,11 +3,14 @@ import CarouselContainer from '../containers/main/CarouselContainer';
 import MainPageContainer from '../containers/main/MainPageContainer';
 import FooterContainer from '../containers/common/FooterContainer';
 import { useEffect } from 'react';
-import { READ_PRODUCTS } from '../modules/redux/productsSlice';
+import { product, READ_PRODUCTS } from '../modules/redux/productsSlice';
 import { useAppSelector, useAppDispatch } from '../modules/redux/hook';
 const MainPage = () => {
   const { products, error, loading } = useAppSelector(
-    ({ products, loading }: { products: any; loading: any }) => ({
+    ({
+      products,
+      loading,
+    }: any): { products: product[]; error: Error; loading: boolean } => ({
       products: products.data,
       error: products.error,
       loading: loading['products/READ_PRODUCTS'],
@@ -27,7 +30,7 @@ const MainPage = () => {
           {!loading && products && (
             <CarouselContainer products={products} loading={loading} />
           )}
-          <MainPageContainer products={products} loading={loading} />
+          <MainPageContainer products={products} />
           <FooterContainer />
         </>
       )}
