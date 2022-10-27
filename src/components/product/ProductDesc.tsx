@@ -15,11 +15,17 @@ article {
   padding : 1rem;
   background-color : ${palette.blue[0]};
   margin : 0 auto;
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
 }
 img {
   width: 1024px;
   height: 18rem;
   margin: 0 auto;
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
 }
 `;
 

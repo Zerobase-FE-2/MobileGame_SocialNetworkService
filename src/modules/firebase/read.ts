@@ -36,6 +36,11 @@ export const updateProduct = async ({ product }: { product: product }) => {
     await updateDoc(dbRef, {
       gameList: arrayUnion(product),
     });
+    const result = await getDoc(dbRef);
+    if (result.exists()) {
+      let posts = result.data().gameList;
+      return posts;
+    }
   } catch (error) {
     console.error(error);
   }
@@ -89,16 +94,21 @@ export const createComment = async ({
         id: id,
       }),
     });
+    const response = await getDoc(dbRef);
+    if (response.exists()) {
+      let posts = response.data().comments;
+      return posts;
+    }
   } catch (error) {
     console.error(error);
   }
 };
 
 export const updateComment = async ({
-  comment,
+  data,
   desc,
 }: {
-  comment: comment;
+  data: comment;
   desc: string;
 }) => {
   const dbRef = doc(firestore, 'bucket', 'gameComments');
@@ -106,7 +116,7 @@ export const updateComment = async ({
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().comments;
-      let post = posts.find((item: comment) => item.id === comment.id);
+      let post = posts.find((item: comment) => item.id === data.id);
       await updateDoc(dbRef, {
         comments: arrayRemove(post),
       });
@@ -115,28 +125,33 @@ export const updateComment = async ({
       comments: arrayUnion({
         contents: {
           comment: desc,
-          commenter: comment.contents.commenter,
+          commenter: data.contents.commenter,
         },
-        date: comment.date,
-        group: comment.group,
-        id: comment.id,
+        date: data.date,
+        group: data.group,
+        id: data.id,
       }),
     });
+    const result = await getDoc(dbRef);
+    if (result.exists()) {
+      let posts = result.data().comments;
+      return posts;
+    }
   } catch (error) {
     console.error(error);
   }
 };
 
-export const removeComment = async ({ id }: { id: number }) => {
+export const removeComment = async ({ data }: { data: comment }) => {
   const dbRef = doc(firestore, 'bucket', 'gameComments');
   try {
+    await updateDoc(dbRef, {
+      comments: arrayRemove(data),
+    });
     const response = await getDoc(dbRef);
     if (response.exists()) {
       let posts = response.data().comments;
-      let post = posts.find((item: comment) => item.id == id);
-      await updateDoc(dbRef, {
-        comments: arrayRemove(post),
-      });
+      return posts;
     }
   } catch (error) {
     console.error(error);

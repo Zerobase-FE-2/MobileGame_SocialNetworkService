@@ -7,6 +7,10 @@ const Article = styled.article`
   @media (max-width: 1024px) {
     margin: 1rem 3rem 0 3rem;
   }
+  @media (max-width: 1024px) {
+    width: 100vw;
+    margin: 1rem 0;
+  }
 `;
 const Title = styled.h2`
   color: black;

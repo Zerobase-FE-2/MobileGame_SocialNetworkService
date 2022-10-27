@@ -11,6 +11,9 @@ const CommentDiv = styled.div`
   padding: 1rem;
   margin: 0 auto;
   background-color: ${palette.blue[0]};
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
   form {
     display: flex;
     margin: 0 auto;
@@ -36,8 +39,6 @@ const WriteComment = ({ comment }: { comment: comment[] }) => {
       <form>
         <textarea cols={110} rows={5} />
         <Button
-          type="submit"
-          // find event form
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             dispatch(
               CREATE_COMMENT({

@@ -15,6 +15,9 @@ const CommentList = styled.ul`
   padding: 0;
   margin: 0 auto;
   background-color: ${palette.black[0]};
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
   li {
     list-style-type: none;
     display: flex;
@@ -28,6 +31,9 @@ const CommentList = styled.ul`
     height: 1.5rem;
     margin: 1rem 0;
     border: none;
+    @media (max-width: 1024px) {
+      width: fit-content;
+    }
   }
   div button {
     margin-left: 1rem;
@@ -44,7 +50,9 @@ const Comments = ({
   const [commentInfo, setCommentInfo] = useState('');
   const [chosen, setChosen] = useState<comment | null>(null);
   const dispatch = useAppDispatch();
-  const content = comment.filter((item: comment) => item.group == params.id);
+  const content: comment[] = comment.filter(
+    (item: comment) => item.group == params.id
+  );
   if (content.length === 0) {
     return <></>;
   }
@@ -70,12 +78,11 @@ const Comments = ({
               onClick={(
                 event: React.MouseEvent<HTMLButtonElement, MouseEvent>
               ) => {
+                event.preventDefault();
                 setChosen(item);
                 setCommentInfo(item.contents.comment);
                 if ((event.target as HTMLElement).innerHTML === '등록') {
-                  dispatch(
-                    UPDATE_COMMENT({ comment: item, desc: commentInfo })
-                  );
+                  dispatch(UPDATE_COMMENT({ data: item, desc: commentInfo }));
                   setChosen(null);
                 }
               }}
@@ -84,7 +91,7 @@ const Comments = ({
             </Button>
             <Button
               onClick={() => {
-                dispatch(REMOVE_COMMENT({ id: item.id }));
+                dispatch(REMOVE_COMMENT({ data: item }));
               }}
             >
               삭제

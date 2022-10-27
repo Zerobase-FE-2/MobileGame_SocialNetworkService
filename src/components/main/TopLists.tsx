@@ -19,7 +19,7 @@ const TopList = styled.article`
     grid-row: 1 / span 2;
   }
   @media (max-width: 1024px) {
-    margin: 1rem 3rem 0 3rem;
+    width: 100vw;
   }
 `;
 const TopMenu = styled.div`

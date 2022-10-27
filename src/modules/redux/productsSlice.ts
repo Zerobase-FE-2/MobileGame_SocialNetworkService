@@ -52,37 +52,35 @@ const productsSlice = createSlice({
     READ_PRODUCTS: (state) => ({
       ...state,
     }),
-    READ_PRODUCTS_SUCCESS: (state, { payload: products }) => ({
+    READ_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: products,
+      data,
     }),
     READ_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
-    UPDATE_PRODUCTS: (state, { payload: product }) => ({
+    UPDATE_PRODUCTS: (state, { payload: data }) => ({
       ...state,
     }),
-    UPDATE_PRODUCTS_SUCCESS: (state, { payload: product }) => ({
+    UPDATE_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: product,
+      data,
     }),
     UPDATE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
-    REMOVE_PRODUCTS: (state, { payload: id }) => ({
+    REMOVE_PRODUCTS: (state, { payload: data }) => ({
       ...state,
-      data: null,
-      error: null,
     }),
-    REMOVE_PRODUCTS_SUCCESS: (state, { payload: id }) => ({
+    REMOVE_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: id,
+      data,
     }),
     REMOVE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
   },
 });

@@ -20,6 +20,7 @@ export interface comment {
 
 const initialState: {} = {
   data: null,
+  desc: null,
   error: null,
 };
 
@@ -48,56 +49,49 @@ const commentSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
-    CREATE_COMMENT: (state, { payload: comment }) => ({
+    CREATE_COMMENT: (state, { payload: data }) => ({
       ...state,
-      data: null,
-      error: null,
     }),
-    CREATE_COMMENT_SUCCESS: (state, { payload: comment }) => ({
+    CREATE_COMMENT_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: comment,
+      data,
     }),
     CREATE_COMMENT_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
     READ_COMMENT: (state) => ({
       ...state,
     }),
-    READ_COMMENT_SUCCESS: (state, { payload: comment }) => ({
+    READ_COMMENT_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: comment,
+      data,
     }),
     READ_COMMENT_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
-    UPDATE_COMMENT: (state, { payload: { comment, desc } }) => ({
+    UPDATE_COMMENT: (state, { payload: { data, desc } }) => ({
       ...state,
-      data: null,
-      error: null,
     }),
-    UPDATE_COMMENT_SUCCESS: (state, { payload: { comment, desc } }) => ({
+    UPDATE_COMMENT_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: comment,
-      desc,
+      data,
     }),
     UPDATE_COMMENT_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
-    REMOVE_COMMENT: (state, { payload: item }) => ({
+    REMOVE_COMMENT: (state, { payload: data }) => ({
       ...state,
-      data: null,
-      error: null,
     }),
-    REMOVE_COMMENT_SUCCESS: (state, { payload: item }) => ({
+    REMOVE_COMMENT_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: item,
+      data,
     }),
     REMOVE_COMMENT_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
     }),
   },
 });

@@ -12,6 +12,9 @@ const ButtonDiv = styled.div`
   padding: 1rem;
   margin: 0 auto;
   background-color: ${palette.blue[0]};
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
   button {
     width: 5.5rem;
     height: 3.5rem;
