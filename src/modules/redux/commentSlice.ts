@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ReactNode } from 'react';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
 import {
@@ -18,10 +19,16 @@ export interface comment {
   id: number;
 }
 
-const initialState: {} = {
-  data: null,
-  desc: null,
-  error: null,
+export interface commentInit {
+  data: comment[];
+  desc: string;
+  error: Error | boolean;
+}
+
+const initialState: commentInit = {
+  data: [],
+  desc: '',
+  error: false,
 };
 
 const createCommentSaga = createRequestSaga(

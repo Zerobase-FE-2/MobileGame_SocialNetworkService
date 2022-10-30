@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ReactNode } from 'react';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
 import { readProduct, removeProduct, updateProduct } from '../firebase/read';
@@ -21,9 +22,14 @@ export interface product {
   title: string;
 }
 
-const initialState: {} = {
+export interface productInit {
+  data: product[] | null;
+  error: Error | boolean;
+}
+
+const initialState: productInit = {
   data: null,
-  error: null,
+  error: false,
 };
 
 const readProductSaga = createRequestSaga(

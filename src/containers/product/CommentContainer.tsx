@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import WriteComment from '../../components/create/WriteComment';
+import Spinner from '../../components/loading/Spinner';
 import Comments from '../../components/product/Comments';
-import { READ_COMMENT } from '../../modules/redux/commentSlice';
+import {
+  comment,
+  commentInit,
+  READ_COMMENT,
+} from '../../modules/redux/commentSlice';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
+import { loadingInit } from '../../modules/redux/loadingSlice';
 
 const CommentContainer = () => {
   let params = useParams();
   const { comment, error, loading } = useAppSelector(
-    ({ comment, error, loading }: any) => ({
+    ({ comment, loading }: { comment: commentInit; loading: loadingInit }) => ({
       comment: comment.data,
       error: comment.error,
       loading: loading['comment/READ_COMMENT'],
@@ -19,10 +25,10 @@ const CommentContainer = () => {
     dispatch(READ_COMMENT());
   }, [dispatch]);
   if (loading || !comment) {
-    return <h1>loading...</h1>;
+    return <Spinner />;
   }
   if (error) {
-    return <h1>{error}</h1>;
+    console.error(error);
   }
   return (
     <>

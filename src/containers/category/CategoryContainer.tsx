@@ -7,7 +7,9 @@ import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
-import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
+import { productInit, READ_PRODUCTS } from '../../modules/redux/productsSlice';
+import { loadingInit } from '../../modules/redux/loadingSlice';
+import Spinner from '../../components/loading/Spinner';
 
 const CategorySection = styled.section`
   position: relative;
@@ -40,26 +42,37 @@ const CategorySection = styled.section`
 
 const CategoryContainer = () => {
   const { products, error, loading } = useAppSelector(
-    ({ products, loading }: { products: any; loading: any }) => ({
+    ({
+      products,
+      loading,
+    }: {
+      products: productInit;
+      loading: loadingInit;
+    }) => ({
       products: products.data,
       error: products.error,
       loading: loading['products/READ_PRODUCTS'],
     })
   );
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(READ_PRODUCTS());
   }, [dispatch]);
+  if (loading) {
+    return <Spinner />;
+  }
+  if (error) {
+    console.error(error);
+  }
   return (
     <>
-      {!loading && products && (
+      {products && (
         <CategorySection>
           <div>
             <Category categories={categories} />
             <PopularBoard products={products} />
           </div>
-          <MainBoard products={products} loading={loading} />
+          <MainBoard products={products} />
           <button>
             <Link to={'/create'}>등록</Link>
           </button>

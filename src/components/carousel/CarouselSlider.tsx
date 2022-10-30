@@ -19,13 +19,7 @@ const randomInt = (arr: product[]): number => {
   return Math.floor(Math.random() * arr.length);
 };
 
-const CarouselSlider = ({
-  products,
-  loading,
-}: {
-  products: product[];
-  loading: boolean;
-}) => {
+const CarouselSlider = ({ products }: { products: product[] }) => {
   const [img, setImg] = useState(randomInt(products));
 
   useEffect(() => {
@@ -36,13 +30,11 @@ const CarouselSlider = ({
   }, []);
   return (
     <>
-      {!loading && (
-        <Link to={`/category/${products[img].id}`}>
-          <Image
-            style={{ backgroundImage: `url(${products[img].screenshot[0]})` }}
-          />
-        </Link>
-      )}
+      <Link to={`/category/${products[img].id}`}>
+        <Image
+          style={{ backgroundImage: `url(${products[img].screenshot[0]})` }}
+        />
+      </Link>
     </>
   );
 };

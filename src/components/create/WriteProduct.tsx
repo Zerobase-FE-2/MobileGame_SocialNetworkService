@@ -15,6 +15,9 @@ const WriteProductSection = styled.section`
   margin: 0 auto;
   padding: 1rem;
   background-color: ${palette.blue[0]};
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
   div {
     margin: 1rem;
   }
@@ -33,6 +36,9 @@ const WriteProductSection = styled.section`
   #description {
     border: none;
     background-color: ${palette.blue[1]};
+    @media (max-width: 1024px) {
+      width: 90vw;
+    }
   }
   textarea {
     resize: vertical;
@@ -71,7 +77,7 @@ const WriteProduct = ({ products }: { products: product[] }) => {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value }: { name: any; value: any } = event.target;
+    const { name, value }: { name: string; value: string } = event.target;
     setInfo({
       ...info,
       [name]: value,

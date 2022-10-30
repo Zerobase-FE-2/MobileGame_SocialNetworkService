@@ -1,14 +1,22 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
-import { READ_PRODUCTS } from '../../modules/redux/productsSlice';
+import { productInit, READ_PRODUCTS } from '../../modules/redux/productsSlice';
 import ProductDesc from '../../components/product/ProductDesc';
 import Buttons from '../../components/product/Buttons';
+import { loadingInit } from '../../modules/redux/loadingSlice';
+import Spinner from '../../components/loading/Spinner';
 
 const ProductContainer = () => {
   let params = useParams();
   const { products, error, loading } = useAppSelector(
-    ({ products, loading }: { products: any; loading: any }) => ({
+    ({
+      products,
+      loading,
+    }: {
+      products: productInit;
+      loading: loadingInit;
+    }) => ({
       products: products.data,
       error: products.error,
       loading: loading['products/READ_PRODUCTS'],
@@ -18,8 +26,8 @@ const ProductContainer = () => {
   useEffect(() => {
     dispatch(READ_PRODUCTS());
   }, [dispatch]);
-  if (loading || !products) {
-    return <h1>loading...</h1>;
+  if (!products) {
+    return <Spinner />;
   }
   if (error) {
     return <h1>{error}</h1>;

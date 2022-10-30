@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {};
+export interface loadingInit {
+  [key: string]: boolean;
+}
+
+const initialState: loadingInit = {};
 
 const loadingSlice = createSlice({
   name: 'loading',

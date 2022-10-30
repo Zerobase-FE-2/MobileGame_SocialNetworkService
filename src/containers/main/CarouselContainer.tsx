@@ -14,16 +14,10 @@ const CarouselContainerDiv = styled.div`
   }
 `;
 
-const CarouselContainer = ({
-  products,
-  loading,
-}: {
-  products: product[];
-  loading: boolean;
-}) => {
+const CarouselContainer = ({ products }: { products: product[] }) => {
   return (
     <CarouselContainerDiv>
-      <CarouselSlider products={products} loading={loading} />
+      <CarouselSlider products={products} />
     </CarouselContainerDiv>
   );
 };

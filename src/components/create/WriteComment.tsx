@@ -5,6 +5,7 @@ import palette from '../../lib/styles/palette';
 import { comment, CREATE_COMMENT } from '../../modules/redux/commentSlice';
 import Button from '../common/Button';
 import React, { MouseEvent } from 'react';
+import setCommentID from '../../modules/function/setCommentID';
 
 const CommentDiv = styled.div`
   width: 1024px;
@@ -32,7 +33,7 @@ const CommentDiv = styled.div`
 const WriteComment = ({ comment }: { comment: comment[] }) => {
   const param = useParams();
   const dispatch = useAppDispatch();
-  let count = comment.length;
+  let count = setCommentID(comment) || comment.length + 1;
   return (
     <CommentDiv>
       <h2>Comments</h2>
@@ -40,6 +41,7 @@ const WriteComment = ({ comment }: { comment: comment[] }) => {
         <textarea cols={110} rows={5} />
         <Button
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            event.preventDefault();
             dispatch(
               CREATE_COMMENT({
                 contents: {

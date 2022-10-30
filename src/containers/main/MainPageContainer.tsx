@@ -5,8 +5,13 @@ import TopLists from '../../components/main/TopLists';
 import CommunityTopList from '../../components/main/CommunityTopList';
 import PopularList from '../../components/main/PopularList';
 import { useEffect } from 'react';
-import { comment, READ_COMMENT } from '../../modules/redux/commentSlice';
+import {
+  comment,
+  commentInit,
+  READ_COMMENT,
+} from '../../modules/redux/commentSlice';
 import { product } from '../../modules/redux/productsSlice';
+import { loadingInit } from '../../modules/redux/loadingSlice';
 const MainSection = styled.section`
   width: 1024px;
   height: full;
@@ -24,7 +29,7 @@ const MainSection = styled.section`
 `;
 const MainPageContainer = ({ products }: { products: product[] }) => {
   const { comment, error, loading } = useAppSelector(
-    ({ comment, loading }: { comment: any; loading: any }) => ({
+    ({ comment, loading }: { comment: commentInit; loading: loadingInit }) => ({
       comment: comment.data,
       error: comment.error,
       loading: loading['products/READ_COMMENT'],

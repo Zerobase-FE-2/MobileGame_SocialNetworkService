@@ -82,20 +82,14 @@ const filterProducts = (setFunc: Function, url: string | null) => {
   }
 };
 
-const MainBoard = ({
-  products,
-  loading,
-}: {
-  products: product[];
-  loading: boolean;
-}) => {
+const MainBoard = ({ products }: { products: product[] }) => {
   const location = useLocation();
   let url = new URLSearchParams(location.search).get('category');
   const [category, setCategory] = useState(null);
   useEffect(() => {
     filterProducts(setCategory, url);
   }, [location]);
-  if (loading || !products) {
+  if (!products) {
     return <h1>loading...</h1>;
   }
   return (
