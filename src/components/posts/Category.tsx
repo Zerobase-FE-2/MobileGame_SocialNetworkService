@@ -34,8 +34,8 @@ const CategoryBlock = styled.ul`
     width: 100%;
   }
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (max-width: 1024px) {
+    width: 100vw;
   }
 `;
 

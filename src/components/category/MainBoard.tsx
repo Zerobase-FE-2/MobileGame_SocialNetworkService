@@ -13,24 +13,33 @@ const ProductTable = styled.article`
   margin-top: 1rem;
   background-color: white;
   border-radius: 10px;
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
 `;
 const Product = styled.div`
   display: flex;
-  width: 820px;
+  flex-shrink: 1;
   height: fit-content;
   padding: 1rem;
   margin-top: 1rem;
   background-color: ${palette.blue[0]};
   border-radius: 10px;
   figure {
-    flex-shrink: 0;
+    flex-shrink: 1;
     width: fit-content;
     height: full;
+    @media (max-width: 1024px) {
+      margin: 1rem;
+    }
   }
   img {
     width: 120px;
     height: 120px;
     border-radius: 10px;
+  }
+  @media (max-width: 1024px) {
+    padding: 0;
   }
 `;
 const ProductDesc = styled.div`
@@ -43,7 +52,6 @@ const ProductDesc = styled.div`
     padding-top: 0;
   }
   p {
-    width: full;
     height: 3rem;
     padding: 0.5rem;
     overflow: hidden;

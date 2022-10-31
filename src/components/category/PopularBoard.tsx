@@ -16,11 +16,27 @@ const PopularList = styled.div`
     margin-bottom: 3px;
     border-bottom: 0.5px solid whitesmoke;
     width: 100%;
+    @media (max-width: 1024px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  div {
+    @media (max-width: 1024px) {
+      display: flex;
+      justify-content: center;
+    }
   }
   img {
     width: 70px;
     height: 70px;
     border-radius: 10px;
+    @media (max-width: 1024px) {
+      margin: 0 1rem;
+    }
+  }
+  @media (max-width: 1024px) {
+    width: 100vw;
   }
 `;
 
@@ -29,11 +45,13 @@ const PopularBoard = ({ products }: { products: product[] }) => {
   return (
     <PopularList>
       <span>인기 게임</span>
-      {popularProducts.map((item: product) => (
-        <Link to={`/category/${item.id}`} key={item.id}>
-          <img src={item.image} alt={item.title} />
-        </Link>
-      ))}
+      <div>
+        {popularProducts.map((item: product) => (
+          <Link to={`/category/${item.id}`} key={item.id}>
+            <img src={item.image} alt={item.title} />
+          </Link>
+        ))}
+      </div>
     </PopularList>
   );
 };

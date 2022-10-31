@@ -29,9 +29,6 @@ const ProductContainer = () => {
   if (!products) {
     return <Spinner />;
   }
-  if (error) {
-    return <h1>{error}</h1>;
-  }
   return (
     <>
       <ProductDesc params={params} products={products} />

@@ -26,6 +26,8 @@ const CategorySection = styled.section`
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
+    width: fit-content;
+    padding: 0;
   }
   button {
     position: fixed;
