@@ -30,11 +30,11 @@ const PostViewerContainer = () => {
 
   const dispatch = useAppDispatch();
   const { post, error, loading, user } = useAppSelector(
-    ({ post, loading }: { post: any; loading: any }) => ({
+    ({ post, loading, user }: any) => ({
       post: post.post,
       error: post.error,
       loading: loading['post/READ_POST'],
-      user: post.post,
+      user: user.user,
       //TODO: user 관리 이후에 변경필요
     })
   );
@@ -62,7 +62,7 @@ const PostViewerContainer = () => {
   };
 
   //TODO: user 관리 이후에 변경필요
-  const ownPost = (user && user.user._id) === (post && post.user._id);
+  const ownPost = (user && user.uid) === (post && post.user._id);
   return (
     <PostViewer
       post={post}

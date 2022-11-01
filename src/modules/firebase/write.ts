@@ -43,11 +43,13 @@ export const writePost = async ({
   body,
   tags,
   category,
+  user,
 }: {
   title: string;
   body: string;
   tags: string[];
   category: string;
+  user: any;
 }) => {
   const uid = uuidv4();
   const publishedDate = Date.now();
@@ -60,8 +62,8 @@ export const writePost = async ({
       category,
       publishedDate,
       user: {
-        username: users[0].username,
-        _id: users[0]._id,
+        username: user.email,
+        _id: user.uid,
       },
     });
   } catch (e) {

@@ -1,3 +1,4 @@
+import CommentContainer from '../containers/comment/CommentContainer';
 import HeaderContainer from '../containers/common/HeaderContainer';
 import PostViewerContainer from '../containers/post/PostViewerContainer';
 
@@ -6,6 +7,7 @@ const PostPage = () => {
     <>
       <HeaderContainer />
       <PostViewerContainer />
+      <CommentContainer />
     </>
   );
 };
