@@ -28,7 +28,25 @@ img {
   }
 }
 `;
-
+const ImageDiv = styled.div`
+  display: flex;
+  align-items: center;
+  width: 1024px;
+  height: 18rem;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
+  img {
+    width: 180px;
+    height: 180px;
+    margin-left: 1rem;
+    border-radius: 10px;
+  }
+`;
 const DescDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,12 +83,19 @@ const ProductDesc = ({
   )!;
   return (
     <Section id={params.id}>
-      <img src={product.image} alt={product.title} />
+      <ImageDiv
+        style={{
+          backgroundImage: `url(${product.screenshot[0]})`,
+        }}
+      >
+        <img src={product.image} alt={product.title} />
+      </ImageDiv>
       <article>
         <DescDiv>
           <Title>{product.title}</Title>
-          <DescCategory>{product.category}</DescCategory>
-          <DescP>{product.company}</DescP>
+          <DescCategory>장르 : {product.category}</DescCategory>
+          <DescCategory>제작사 : {product.company}</DescCategory>
+          <DescCategory>게임 소개</DescCategory>
           <DescP>{product.description}</DescP>
         </DescDiv>
       </article>

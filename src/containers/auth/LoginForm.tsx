@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import AuthForm from '../../components/auth/AuthForm';
 import { useNavigate } from 'react-router-dom';
-// import { check } from '../../modules/user';
 import { useAppDispatch, useAppSelector } from '../../modules/redux/hook';
 import {
   CHANGE_FIELD,

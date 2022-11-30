@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReactNode } from 'react';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
 import { readProduct, removeProduct, updateProduct } from '../firebase/read';

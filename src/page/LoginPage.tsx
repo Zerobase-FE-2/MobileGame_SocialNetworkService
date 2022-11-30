@@ -1,12 +1,17 @@
-import React from 'react';
 import LoginForm from '../containers/auth/LoginForm';
 import AuthTemplate from '../components/auth/AuthTemplate';
+import HeaderContainer from '../containers/common/HeaderContainer';
+import FooterContainer from '../containers/common/FooterContainer';
 
 const LoginPage = () => {
   return (
-    <AuthTemplate>
-      <LoginForm />
-    </AuthTemplate>
+    <>
+      <HeaderContainer />
+      <AuthTemplate>
+        <LoginForm />
+      </AuthTemplate>
+      <FooterContainer />
+    </>
   );
 };
 
