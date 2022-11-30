@@ -1,6 +1,7 @@
 import CarouselSlider from '../../components/carousel/CarouselSlider';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { product } from '../../modules/redux/productsSlice';
 
 const CarouselContainerDiv = styled.div`
   width: 1024px;
@@ -13,10 +14,10 @@ const CarouselContainerDiv = styled.div`
   }
 `;
 
-const CarouselContainer = ({ products, loading }: any) => {
+const CarouselContainer = ({ products }: { products: product[] }) => {
   return (
     <CarouselContainerDiv>
-      <CarouselSlider products={products} loading={loading} />
+      <CarouselSlider products={products} />
     </CarouselContainerDiv>
   );
 };

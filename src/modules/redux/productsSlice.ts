@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga from '../../lib/createRequestSaga';
-import { readProduct } from '../firebase/read';
+import { readProduct, removeProduct, updateProduct } from '../firebase/read';
 
 export interface product {
   category: string;
@@ -21,18 +21,33 @@ export interface product {
   title: string;
 }
 
-const initialState: any = {
+export interface productInit {
+  data: product[] | null;
+  error: Error | boolean;
+}
+
+const initialState: productInit = {
   data: null,
-  error: null,
+  error: false,
 };
 
 const readProductSaga = createRequestSaga(
   'products/READ_PRODUCTS',
   readProduct
 );
+const updateProductSaga = createRequestSaga(
+  'products/UPDATE_PRODUCTS',
+  updateProduct
+);
+const removeProductSaga = createRequestSaga(
+  'products/REMOVE_PRODUCTS',
+  removeProduct
+);
 
 export function* readSaga() {
   yield takeLatest('products/READ_PRODUCTS', readProductSaga);
+  yield takeLatest('products/UPDATE_PRODUCTS', updateProductSaga);
+  yield takeLatest('products/REMOVE_PRODUCTS', removeProductSaga);
 }
 
 const productsSlice = createSlice({
@@ -42,17 +57,48 @@ const productsSlice = createSlice({
     READ_PRODUCTS: (state) => ({
       ...state,
     }),
-    READ_PRODUCTS_SUCCESS: (state, { payload: products }) => ({
+    READ_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
       ...state,
-      data: products,
+      data,
     }),
     READ_PRODUCTS_FAILURE: (state, { payload: error }) => ({
       ...state,
-      error: error,
+      error,
+    }),
+    UPDATE_PRODUCTS: (state, { payload: data }) => ({
+      ...state,
+    }),
+    UPDATE_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
+      ...state,
+      data,
+    }),
+    UPDATE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+    REMOVE_PRODUCTS: (state, { payload: data }) => ({
+      ...state,
+    }),
+    REMOVE_PRODUCTS_SUCCESS: (state, { payload: data }) => ({
+      ...state,
+      data,
+    }),
+    REMOVE_PRODUCTS_FAILURE: (state, { payload: error }) => ({
+      ...state,
+      error,
     }),
   },
 });
 
-export const { READ_PRODUCTS, READ_PRODUCTS_SUCCESS, READ_PRODUCTS_FAILURE } =
-  productsSlice.actions;
+export const {
+  READ_PRODUCTS,
+  READ_PRODUCTS_SUCCESS,
+  READ_PRODUCTS_FAILURE,
+  UPDATE_PRODUCTS,
+  UPDATE_PRODUCTS_SUCCESS,
+  UPDATE_PRODUCTS_FAILURE,
+  REMOVE_PRODUCTS,
+  REMOVE_PRODUCTS_SUCCESS,
+  REMOVE_PRODUCTS_FAILURE,
+} = productsSlice.actions;
 export default productsSlice.reducer;

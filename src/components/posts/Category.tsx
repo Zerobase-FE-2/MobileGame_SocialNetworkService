@@ -9,7 +9,7 @@ const CategoryBlock = styled.ul`
   padding: 5px;
   justify-content: center;
   width: 130px;
-  max-height: 30vh;
+  max-height: 320px;
   background-color: white;
   border-radius: 10px;
   li {
@@ -34,8 +34,8 @@ const CategoryBlock = styled.ul`
     width: 100%;
   }
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (max-width: 1024px) {
+    width: 100vw;
   }
 `;
 

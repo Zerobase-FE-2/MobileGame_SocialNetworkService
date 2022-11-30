@@ -1,10 +1,12 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import React, {useState} from 'react'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { useState } from 'react';
 import { auth, firestore } from '../../modules/firebase/app';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { doc, setDoc } from 'firebase/firestore';
-
 
 const RegisterboxTitle = styled.div`
   position: absolute;
@@ -85,43 +87,29 @@ const Registerboxbottom = styled.div`
   align-items: center;
 `;
 
-
-
-export default function Register(props:any) {
-  // const {userUid} = props;
-  const [uid, setUid] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  // const frankDocRef = doc(firestore, "cities", `${userUid}`);
-  function register(){
+export default function Register(props: any) {
+  const [uid, setUid] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+  function register() {
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // setDoc(frankDocRef, {uid:`${userUid}`, nickname:`${nickname}`}, { merge: true });
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          setUid(user.uid);
-          setDoc(doc(firestore, "users", `${user.uid}`), {
-        uid:`${user.uid}`, nickname:`${nickname}`
+      .then((userCredential) => {
+        const user = userCredential.user;
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setUid(user.uid);
+            setDoc(doc(firestore, 'users', `${user.uid}`), {
+              uid: `${user.uid}`,
+              nickname: `${nickname}`,
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
       });
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-      });
-      
-  // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
   }
 
   return (
@@ -129,21 +117,46 @@ export default function Register(props:any) {
       <RegisterboxBorderLine>
         <Registerboxtop>
           <InputBox>
-            <div>ID : </div><input type="text" placeholder='abcd123@email.com' onChange={(e)=>{setEmail(e.target.value)}}/>
+            <div>ID : </div>
+            <input
+              type="text"
+              placeholder="abcd123@email.com"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
           </InputBox>
           <InputBox>
-            <div>PW : </div><input type="password" placeholder='password' onChange={(e)=>{setPassword(e.target.value)}}/>
+            <div>PW : </div>
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
           </InputBox>
           <InputBox>
-            <div>nicname : </div><input type="text" placeholder='nickname' onChange={(e)=>{setNickname(e.target.value)}}/>
+            <div>nickname : </div>
+            <input
+              type="text"
+              placeholder="nickname"
+              onChange={(e) => {
+                setNickname(e.target.value);
+              }}
+            />
           </InputBox>
         </Registerboxtop>
         <Registerboxbottom>
-          <div><Link to={"/loginpage"}>로그인하러가기</Link></div>
-          <div><button onClick={register}>회원가입</button></div>
+          <div>
+            <Link to={'/loginpage'}>로그인하러가기</Link>
+          </div>
+          <div>
+            <button onClick={register}>회원가입</button>
+          </div>
         </Registerboxbottom>
       </RegisterboxBorderLine>
       <RegisterboxTitle>Register</RegisterboxTitle>
     </Registerbox>
-  )
+  );
 }

@@ -1,33 +1,45 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { product } from '../../modules/redux/productsSlice';
 
 const ProductTable = styled.article`
   grid-row: 1 / span 2;
   grid-column: 2;
   width: fit-content;
   height: fit-content;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   margin-top: 1rem;
   background-color: white;
   border-radius: 10px;
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
 `;
 const Product = styled.div`
   display: flex;
-  width: 820px;
+  flex-shrink: 1;
   height: fit-content;
   padding: 1rem;
   margin-top: 1rem;
-  background-color: white;
+  background-color: ${palette.blue[0]};
   border-radius: 10px;
   figure {
-    flex-shrink: 0;
+    flex-shrink: 1;
     width: fit-content;
     height: full;
+    @media (max-width: 1024px) {
+      margin: 1rem;
+    }
   }
   img {
-    width: fit-content;
+    width: 120px;
+    height: 120px;
     border-radius: 10px;
+  }
+  @media (max-width: 1024px) {
+    padding: 0;
   }
 `;
 const ProductDesc = styled.div`
@@ -40,36 +52,85 @@ const ProductDesc = styled.div`
     padding-top: 0;
   }
   p {
-    width: full;
     height: 3rem;
     padding: 0.5rem;
     overflow: hidden;
     margin-top: 0;
   }
 `;
-const MainBoard = ({ products, loading }: any) => {
+const filterProducts = (setFunc: Function, url: string | null) => {
+  switch (url) {
+    case 'action':
+      setFunc('액션');
+      break;
+    case 'adventure':
+      setFunc('어드벤처');
+      break;
+    case 'roleplay':
+      setFunc('롤플레잉');
+      break;
+    case 'simulation':
+      setFunc('시뮬레이션');
+      break;
+    case 'strategy':
+      setFunc('전략');
+      break;
+    case 'sports':
+      setFunc('스포츠');
+      break;
+    case 'racing':
+      setFunc('자동차 경주');
+      break;
+    case 'casual':
+      setFunc('캐주얼 게임');
+      break;
+    default:
+      setFunc(null);
+      break;
+  }
+};
+
+const MainBoard = ({ products }: { products: product[] }) => {
+  const location = useLocation();
+  let url = new URLSearchParams(location.search).get('category');
+  const [category, setCategory] = useState(null);
   useEffect(() => {
-    console.log(products);
-  }, []);
+    filterProducts(setCategory, url);
+  }, [location]);
+  if (!products) {
+    return <h1>loading...</h1>;
+  }
   return (
     <ProductTable>
-      {!loading &&
-        products &&
-        products.map((product: any) => (
-          <Product key={product.id}>
-            <figure>
-              <img src={product.image} alt={product.title} />
-            </figure>
-            <ProductDesc>
-              <h2>
-                <Link to={`/${product.id}`}>{product.title}</Link>
-              </h2>
-              <p>
-                <Link to={`/${product.id}`}>{product.description}</Link>
-              </p>
-            </ProductDesc>
-          </Product>
-        ))}
+      {category === null
+        ? products.map((product: product) => (
+            <Link to={`/category/${product.id}`} key={product.id}>
+              <Product>
+                <figure>
+                  <img src={product.image} alt={product.title} />
+                </figure>
+                <ProductDesc>
+                  <h2>{product.title}</h2>
+                  <p>{product.description}</p>
+                </ProductDesc>
+              </Product>
+            </Link>
+          ))
+        : products
+            .filter((product: product) => product.category === category)
+            .map((product: product) => (
+              <Link to={`/category/${product.id}`} key={product.id}>
+                <Product>
+                  <figure>
+                    <img src={product.image} alt={product.title} />
+                  </figure>
+                  <ProductDesc>
+                    <h2>{product.title}</h2>
+                    <p>{product.description}</p>
+                  </ProductDesc>
+                </Product>
+              </Link>
+            ))}
     </ProductTable>
   );
 };

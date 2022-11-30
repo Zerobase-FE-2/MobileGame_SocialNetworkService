@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../modules/redux/hook';
 import { productInit, READ_PRODUCTS } from '../../modules/redux/productsSlice';
-import WriteProduct from '../../components/create/WriteProduct';
+import ProductDesc from '../../components/product/ProductDesc';
+import Buttons from '../../components/product/Buttons';
 import { loadingInit } from '../../modules/redux/loadingSlice';
 import Spinner from '../../components/loading/Spinner';
 
-const WriteProductContainer = () => {
+const ProductContainer = () => {
+  let params = useParams();
   const { products, error, loading } = useAppSelector(
     ({
       products,
@@ -23,14 +26,14 @@ const WriteProductContainer = () => {
   useEffect(() => {
     dispatch(READ_PRODUCTS());
   }, [dispatch]);
-  if (loading || !products) {
+  if (!products) {
     return <Spinner />;
   }
   return (
     <>
-      <WriteProduct products={products} />
+      <ProductDesc params={params} products={products} />
+      <Buttons params={params} />
     </>
   );
 };
-
-export default WriteProductContainer;
+export default ProductContainer;

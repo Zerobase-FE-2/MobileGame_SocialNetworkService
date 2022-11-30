@@ -1,5 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { useAppDispatch } from '../../modules/redux/hook';
+import { product, UPDATE_PRODUCTS } from '../../modules/redux/productsSlice';
 import Button from '../common/Button';
 
 const WriteProductSection = styled.section`
@@ -10,6 +15,9 @@ const WriteProductSection = styled.section`
   margin: 0 auto;
   padding: 1rem;
   background-color: ${palette.blue[0]};
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
   div {
     margin: 1rem;
   }
@@ -25,9 +33,15 @@ const WriteProductSection = styled.section`
     border: none;
     background-color: ${palette.blue[1]};
   }
-  #desc {
+  #description {
     border: none;
     background-color: ${palette.blue[1]};
+    @media (max-width: 1024px) {
+      width: 90vw;
+    }
+  }
+  textarea {
+    resize: vertical;
   }
 `;
 const BtnDiv = styled.div`
@@ -37,21 +51,68 @@ const BtnDiv = styled.div`
     margin: 0 0.5rem;
   }
 `;
+// type issue
+const WriteProduct = ({ products }: { products: product[] }) => {
+  const params = useParams();
+  const product: product = products.find(
+    (item: product) => item.id.toString() === params.id
+  )!;
+  const navigate = useNavigate();
+  const [info, setInfo] = useState<product>(product);
+  const screenshotRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const {
+    category,
+    company,
+    description,
+    id,
+    image,
+    rating,
+    screenshot,
+    title,
+  } = info;
 
-const WriteProduct = () => {
+  const onChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value }: { name: string; value: string } = event.target;
+    setInfo({
+      ...info,
+      [name]: value,
+    });
+  };
   return (
     <WriteProductSection>
       <div>
         <label htmlFor="title">제목</label>
-        <input type="text" name="title" id="title" />
+        <input
+          type="text"
+          name="title"
+          id="title"
+          onChange={onChange}
+          value={title}
+        />
       </div>
       <div>
         <label htmlFor="company">회사</label>
-        <input type="text" name="company" id="company" />
+        <input
+          type="text"
+          name="company"
+          id="company"
+          onChange={onChange}
+          value={company}
+        />
       </div>
       <div>
         <label htmlFor="category">장르</label>
-        <select name="category" id="category">
+        <select
+          name="category"
+          id="category"
+          onChange={onChange}
+          value={category}
+        >
           <option value="">장르를 선택해주세요.</option>
           <option value="액션">액션</option>
           <option value="롤플레잉">롤플레잉</option>
@@ -64,26 +125,37 @@ const WriteProduct = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="desc">설명</label>
+        <label htmlFor="description">설명</label>
         <textarea
-          name="desc"
-          id="desc"
+          name="description"
+          id="description"
           cols={120}
           rows={10}
           placeholder="게임 설명을 추가해주세요."
+          onChange={onChange}
+          value={description}
         />
       </div>
       <div>
-        <label htmlFor="uploadImg">이미지 첨부</label>
+        <label htmlFor="uploadImg">스크린샷 첨부</label>
         <input
           type="file"
           name="uploadImg"
           id="uploadImg"
           accept="image/png, image/jpeg"
+          ref={screenshotRef}
+          multiple={true}
         />
       </div>
       <BtnDiv>
-        <Button>등록하기</Button>
+        <Button
+          onClick={() => {
+            dispatch(UPDATE_PRODUCTS({ product: info }));
+            navigate(-1);
+          }}
+        >
+          등록하기
+        </Button>
         <Button>뒤로가기</Button>
       </BtnDiv>
     </WriteProductSection>
